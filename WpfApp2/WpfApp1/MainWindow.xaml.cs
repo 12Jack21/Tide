@@ -24,6 +24,7 @@ namespace WpfApp1
     public partial class MainWindow : Window
     {
         private int countSecond;  //设置多少秒后提醒
+        private int learningTime;  //学习时间
         private int hour, second, minute;  //用来显示
         private bool isOK = false;  // 表示暂停按钮是否被点击；
         DispatcherTimer disTimer = new DispatcherTimer();  //定时器                                                
@@ -100,9 +101,18 @@ namespace WpfApp1
             //this.Dispose();
             //this.Close();
             InitializeComponent();
-            HideButton();
-            disTimer.Tick -= new EventHandler(disTimer_Tick);
-            Timer.Content = "";
+            HideButton();   //隐藏按钮
+            disTimer.Tick -= new EventHandler(disTimer_Tick);  
+            Timer.Content = "";    //计时器设为空，即不可见
+
+            int length = learningTime - countSecond;  //已学习时长
+            //转换为字符串，传入参数
+            String timeRecord = String.Format("{0:D2}", length / 60 / 60) + ":" + String.Format("{0:D2}", (length / 60) % 60) + ":" + String.Format("{0:D2}", length % 60);
+            LearningRecordWindow lrw = new LearningRecordWindow(NowNo, first, false,false, timeRecord);
+            lrw.ShowDialog();
+            NowNo++;
+            LearningRecordService.ShowAll();
+            first = false;
         }
 
         private void Button_Click_5(object sender, RoutedEventArgs e)    //按钮点击，切换图片
@@ -119,7 +129,7 @@ namespace WpfApp1
 
         private void Button_Click_6(object sender, RoutedEventArgs e)  //查询学习记录
         {
-            LearningRecordWindow lrw = new LearningRecordWindow(NowNo, first,false);
+            LearningRecordWindow lrw = new LearningRecordWindow(NowNo, first,false,true,null);
             lrw.ShowDialog();
             //NowNo++;
             LearningRecordService.ShowAll();
@@ -134,7 +144,8 @@ namespace WpfApp1
             comboBox.Visibility = Visibility.Hidden;
             if (comboBox.Text == null)
                 MessageBox.Show("未选择时间！");
-            countSecond = int.Parse(comboBox.Text)*60; //获取选择时间                    
+            countSecond = int.Parse(comboBox.Text)*60; //获取选择时间 
+            learningTime = countSecond;  
             disTimer.Interval = new TimeSpan(0, 0, 0, 1); //参数为:天 小时 分和秒
             disTimer.Tick += new EventHandler(disTimer_Tick);   //每一秒执行一次的方法
             mc.play();  //开始播放
@@ -150,7 +161,13 @@ namespace WpfApp1
                 MessageBox.Show("结束");
                 disTimer.Stop(); //关闭计时器
                 mc.StopT(); //关闭音乐
-                LearningRecordWindow lrw = new LearningRecordWindow(NowNo, first,true);
+
+                InitializeComponent();
+                HideButton();   //隐藏按钮
+                Timer.Content = "";    //计时器设为空，即不可见
+
+                String timeRecord = String.Format("{0:D2}", learningTime / 60 / 60) + ":" + String.Format("{0:D2}", (learningTime / 60) % 60) + ":" + String.Format("{0:D2}", learningTime % 60);
+                LearningRecordWindow lrw = new LearningRecordWindow(NowNo, first,true,false,timeRecord);
                 lrw.ShowDialog();
                 NowNo++;
                 LearningRecordService.ShowAll();

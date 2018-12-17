@@ -36,7 +36,7 @@ namespace WpfApp1
             public int Value { get; set; }
         }
 
-        public LearningRecordWindow(int nowNo, bool first,bool IsFinal)
+        public LearningRecordWindow(int nowNo, bool first,bool IsFinal,bool chaxun,String timeLength)
         {
             this.nowNo = nowNo;
             this.first = first;
@@ -52,7 +52,7 @@ namespace WpfApp1
             selectComboBox.SelectedValuePath = "Value";
 
             //数据初始化(问题：监控程序如何传值构造）            
-            string path = @"E:\project\C#\项目\WpfApp1\WpfApp1\bin\Debug\";//指定目录
+            string path = @"E:\project\C#\项目\WpfApp2\WpfApp1\bin\Debug\";//指定目录
             NewFileInfo nf = NewFileInfo.GetLastFile(path, ".xml");
             if (nf == null)//如果没有xml文件，先生成一个空的xml
             {
@@ -85,12 +85,20 @@ namespace WpfApp1
             //    recordList.Add(new LearningRecordManager(nowNo, dt2, ts2, true));
             //    RecordList.ItemsSource = recordList;
             //}
-            if(IsFinal == true)  //如果完成学习
+
+            if(IsFinal == true && chaxun == false)  //如果完成学习
             {
                 nowNo = recordList[recordList.Count - 1].recordNo + 1;
                 DateTime dt2 = DateTime.Now;
-                TimeSpan ts2 = TimeSpan.Parse("0:0:20");
+                TimeSpan ts2 = TimeSpan.Parse(timeLength);
                 recordList.Add(new LearningRecordManager(nowNo, dt2, ts2, true));
+            }
+            if(IsFinal == false && chaxun == false)   //代表没有查询，放弃本次学习。
+            {
+                nowNo = recordList[recordList.Count - 1].recordNo + 1;
+                DateTime dt2 = DateTime.Now;
+                TimeSpan ts2 = TimeSpan.Parse(timeLength);
+                recordList.Add(new LearningRecordManager(nowNo, dt2, ts2, false));
             }
             RecordList.ItemsSource = recordList;
 

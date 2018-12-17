@@ -42,4 +42,46 @@
     <LearnState>true</LearnState>
     <learnTime>200000000</learnTime>
   </LearningRecordManager>
+  <LearningRecordManager>
+    <recordNo>7</recordNo>
+    <RecordNo>7</RecordNo>
+    <LearnDate>2018-12-17T11:49:16.7426558+08:00</LearnDate>
+    <LearnState>true</LearnState>
+    <learnTime>600000000</learnTime>
+  </LearningRecordManager>
+  <LearningRecordManager>
+    <recordNo>8</recordNo>
+    <RecordNo>8</RecordNo>
+    <LearnDate>2018-12-17T11:54:19.1541746+08:00</LearnDate>
+    <LearnState>true</LearnState>
+    <learnTime>280000000</learnTime>
+  </LearningRecordManager>
+  <LearningRecordManager>
+    <recordNo>9</recordNo>
+    <RecordNo>9</RecordNo>
+    <LearnDate>2018-12-17T12:01:02.0928565+08:00</LearnDate>
+    <LearnState>true</LearnState>
+    <learnTime>150000000</learnTime>
+  </LearningRecordManager>
+  <LearningRecordManager>
+    <recordNo>10</recordNo>
+    <RecordNo>10</RecordNo>
+    <LearnDate>2018-12-17T12:03:49.9783143+08:00</LearnDate>
+    <LearnState>true</LearnState>
+    <learnTime>600000000</learnTime>
+  </LearningRecordManager>
+  <LearningRecordManager>
+    <recordNo>11</recordNo>
+    <RecordNo>11</RecordNo>
+    <LearnDate>2018-12-17T12:04:39.5222556+08:00</LearnDate>
+    <LearnState>false</LearnState>
+    <learnTime>220000000</learnTime>
+  </LearningRecordManager>
+  <LearningRecordManager>
+    <recordNo>12</recordNo>
+    <RecordNo>12</RecordNo>
+    <LearnDate>2018-12-17T12:07:17.9020522+08:00</LearnDate>
+    <LearnState>true</LearnState>
+    <learnTime>600000000</learnTime>
+  </LearningRecordManager>
 </ArrayOfLearningRecordManager>
