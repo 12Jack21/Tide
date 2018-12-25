@@ -53,7 +53,7 @@ namespace WpfApp1
             selectComboBox.SelectedValuePath = "Value";
 
             //数据初始化(问题：监控程序如何传值构造）            
-            string path = @"E:\project\C#\项目\WpfApp2\WpfApp1\bin\Debug\";//指定目录
+            string path = System.IO.Directory.GetCurrentDirectory();//指定目录
             NewFileInfo nf = NewFileInfo.GetLastFile(path, ".xml");
 
             if (nf == null)//如果没有xml文件，先生成一个空的xml
