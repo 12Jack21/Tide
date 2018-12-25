@@ -79,7 +79,7 @@ namespace WpfApp1
 
         private void Button_Click_6(object sender, RoutedEventArgs e)  //查询学习记录
         {
-            LearningRecordWindow lrw = new LearningRecordWindow(NowNo, first,false,true,null);
+            LearningRecordWindow lrw = new LearningRecordWindow(NowNo, first,false,true,null);   //学习状态如何传递
             lrw.ShowDialog();
             //NowNo++;
             LearningRecordService.ShowAll();

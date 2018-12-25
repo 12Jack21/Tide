@@ -112,7 +112,7 @@ namespace WpfApp1
                     this.Close();  //关闭当前窗口
 
                     String timeRecord = String.Format("{0:D2}", learningTime / 60 / 60) + ":" + String.Format("{0:D2}", (learningTime / 60) % 60) + ":" + String.Format("{0:D2}", learningTime % 60);
-                    LearningRecordWindow lrw = new LearningRecordWindow(NowNo, first, true, false, timeRecord);
+                    LearningRecordWindow lrw = new LearningRecordWindow(NowNo, first, false, false, timeRecord);
                     lrw.ShowDialog();
                     NowNo++;
                     LearningRecordService.ShowAll();
@@ -127,6 +127,7 @@ namespace WpfApp1
                     pm.clearGameTime();
                     mc.play();
                     disTimer.Start();
+                    return;
                 }
             }
 

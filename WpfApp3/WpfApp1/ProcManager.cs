@@ -59,7 +59,7 @@ namespace WpfApp1
             if (lastGameName == null)
             {
                 lastGameName = name;
-                gameTime = 0;
+                gameTime = 1;
             }
             else
             {
@@ -68,7 +68,7 @@ namespace WpfApp1
                 else
                 {
                     lastGameName = name;
-                    gameTime = 0;
+                    gameTime = 1;
                 }
             }
         }
