@@ -14,15 +14,23 @@ namespace WpfApp1
         public int recordNo;
         private DateTime learnDate;
         private TimeSpan learnTime;
-        private bool learnState;
-        //public List<Monitor> monitor{get;set;}//添加监控的软件及使用时间
+        private bool learnState;//判定学习是否完成
+        private string learnStateResult;//根据学习状态的判定打印相应的信息
         public LearningRecordManager() { }
-        public LearningRecordManager(int rn, DateTime ld, TimeSpan lt, bool ls/* List<Monitor> m*/)
+        public LearningRecordManager(int rn, DateTime ld, TimeSpan lt, bool ls)
         {
             recordNo = rn;
             learnTime = lt;
             learnDate = ld;
             learnState = ls;
+            if (ls)
+            {
+                learnStateResult = "已完成";
+            }
+            else
+            {
+                learnStateResult = "未完成";
+            }
             //monitor = m;
         }
         //用于数据绑定
@@ -54,16 +62,23 @@ namespace WpfApp1
                 }
             }
         }
-        public bool LearnState
+        public string LearnStateResult
         {
-            get { return learnState; }
+            get { return learnStateResult; }
             set
             {
-                learnState = value;
+                learnStateResult = value;
                 if (PropertyChanged != null)
                 {
                     PropertyChanged.Invoke(this, new PropertyChangedEventArgs("Age"));
                 }
+            }
+        }
+        public bool LearnState
+        {
+            get
+            {
+                return learnState;
             }
         }
         [XmlIgnore]
@@ -85,15 +100,7 @@ namespace WpfApp1
             get { return learnTime.Ticks; }
             set { learnTime = new TimeSpan(value); }
         }
-        //public void AddMonitor(Monitor m)
-        //{
-        //    if (this.monitor.Contains(m))
-        //    {
-        //        throw new Exception("The monitor has existed, you don't need to add it.");
-        //    }
-        //    monitor.Add(m);
-        // }
-
+        
     }
 
 }

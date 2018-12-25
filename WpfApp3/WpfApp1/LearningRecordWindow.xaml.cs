@@ -24,11 +24,11 @@ namespace WpfApp1
     public partial class LearningRecordWindow : Window
     {
 
-        private List<LearningRecordManager> recordList = new List<LearningRecordManager>();//用于List的数据绑定
+        private List<LearningRecordManager> recordList;//用于List的数据绑定
         private List<CategoryInfo> categoryList = new List<CategoryInfo>();//用于combobox的选项数据绑定
         private int nowNo;
-        private bool first;
-
+        //用于生成相应的分析报告窗口
+        private DataAnalysisWindow daw;
         //用于combobox的选择项
         public class CategoryInfo
         {
@@ -36,13 +36,8 @@ namespace WpfApp1
             public int Value { get; set; }
         }
 
-        public LearningRecordWindow(int nowNo, bool first, bool IsFinal, bool chaxun, String timeLength)
+        public void init()
         {
-
-            this.nowNo = nowNo;
-            this.first = first;
-            InitializeComponent();
-
             //combobox的选项
             categoryList.Add(new CategoryInfo { Name = "按照学习日期查询", Value = 2 });
             categoryList.Add(new CategoryInfo { Name = "按照学习记录序号查询", Value = 1 });
@@ -51,9 +46,8 @@ namespace WpfApp1
             selectComboBox.ItemsSource = categoryList;
             selectComboBox.DisplayMemberPath = "Name";
             selectComboBox.SelectedValuePath = "Value";
-
-            //数据初始化(问题：监控程序如何传值构造）            
-            string path = @"E:\project\C#\项目\WpfApp2\WpfApp1\bin\Debug\";//指定目录
+            //数据初始化            
+            string path = @"..\..\bin\Debug\";//指定目录
             NewFileInfo nf = NewFileInfo.GetLastFile(path, ".xml");
 
             if (nf == null)//如果没有xml文件，先生成一个空的xml
@@ -62,16 +56,34 @@ namespace WpfApp1
                 LearningRecordService.Export(fileName);
                 NewFileInfo nf2 = NewFileInfo.GetLastFile(path, ".xml");
                 string newPath = nf2.FileName;
-                recordList = LearningRecordService.Import(newPath, first);
+                recordList = LearningRecordService.Import(newPath);
             }
             else//如果已有则直接导入
             {
                 string newPath = nf.FileName;
-                recordList = LearningRecordService.Import(newPath, first);
+                recordList = LearningRecordService.Import(newPath);
             }
+        }
 
+        public LearningRecordWindow()
+        {
+            InitializeComponent();
+            init();
+            RecordList.ItemsSource = recordList;
 
-            if (IsFinal == true && chaxun == false)  //如果完成学习
+            //传递给learningRecordService的数据（dictionary转化为list）           
+            LearningRecordService.RecordDictionary = recordList.ToDictionary(key => key.recordNo, value => value);
+        }
+
+        public LearningRecordWindow(int nowNo, bool IsFinal,String timeLength)
+        {
+
+            this.nowNo = nowNo;
+            InitializeComponent();
+
+            init();
+
+            if (IsFinal == true)  //如果完成学习
             {
                 if (recordList.Count == 0)
                 {
@@ -88,7 +100,7 @@ namespace WpfApp1
                 }
 
             }
-            if (IsFinal == false && chaxun == false)   //代表没有查询，放弃本次学习。
+            if (IsFinal == false)   //代表没有查询，放弃本次学习。
             {
                 if (recordList.Count == 0)
                 {
@@ -125,18 +137,27 @@ namespace WpfApp1
                     int id = 0;
                     int.TryParse(textBox.Text, out id);
                     RecordList.ItemsSource = LearningRecordService.FindByRecordNo(id);
+                    if (LearningRecordService.FindByRecordNo(id) == null)
+                    {
+                        MessageBox.Show("无匹配的学习记录，请重新搜索。");
+                    }
+                    RecordList.ItemsSource = recordList;
                     break;
                 case 2:
                     string datetime = textBox.Text;
                     RecordList.ItemsSource = LearningRecordService.FindByLearnDate(datetime);
+                    if(LearningRecordService.FindByLearnDate(datetime) == null)
+                    {
+                        MessageBox.Show("无匹配的学习记录，请重新搜索。");
+                    }
+                    RecordList.ItemsSource = recordList;
                     break;
                 case 3:
                     RecordList.ItemsSource = LearningRecordService.FindByLearnState(true);
                     break;
-
             }
         }
-        //用于获取最新的xml文件
+        //用于获取最新的xml文件（本用来实现不同时间的xml文件各不相同）
         public class NewFileInfo
         {
             public string FileName;
@@ -156,7 +177,6 @@ namespace WpfApp1
 
                         });
                     }
-
                 }
                 var query = from x in fileList orderby x.FileCreateTime select x;
                 return query.LastOrDefault();
@@ -165,8 +185,19 @@ namespace WpfApp1
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-
             Close();
         }
+        //双击数据行时生成相应的学习分析报告
+        private void OnListViewItemDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            daw = new DataAnalysisWindow();
+            daw.ShowDialog();
+        }
+
+        private void ShowHelp(object sender, MouseButtonEventArgs e)
+        {
+            MessageBox.Show("1.日期查询支持查询某一年的记录，如2018，也支持类似2018-08-14或者2018-08来查询对应的天和月份记录;" +
+                "2.查询输入的数据须符合要求");
+        }
     }
-    }
+}

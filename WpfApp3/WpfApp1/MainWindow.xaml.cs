@@ -79,11 +79,9 @@ namespace WpfApp1
 
         private void Button_Click_6(object sender, RoutedEventArgs e)  //查询学习记录
         {
-            LearningRecordWindow lrw = new LearningRecordWindow(NowNo, first,false,true,null);
+            LearningRecordWindow lrw = new LearningRecordWindow();
             lrw.ShowDialog();
-            //NowNo++;
             LearningRecordService.ShowAll();
-            first = false;
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)   //开始专注点击事件
@@ -91,8 +89,10 @@ namespace WpfApp1
           
             if (comboBox.Text == null)
                 MessageBox.Show("未选择时间！");
-
-            countSecond = int.Parse(comboBox.Text)*60; //获取选择时间          
+            string chooseTimeString = comboBox.Text;
+            string[] chooseTime = chooseTimeString.Split(' ');
+            countSecond = int.Parse(chooseTime[0]) * 60;//获取选择时间 
+     
           
             //主界面的隐藏
             //显示时钟界面

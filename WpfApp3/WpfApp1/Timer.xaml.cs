@@ -67,41 +67,47 @@ namespace WpfApp1
         {
             mc.Puase();
             disTimer.Stop();
-            
-            disTimer.Tick -= new EventHandler(disTimer_Tick);
-            
-            int length = learningTime - CountSecond;  //已学习时长
-            //转换为字符串，传入参数
-            String timeRecord = String.Format("{0:D2}", length / 60 / 60) + ":" + String.Format("{0:D2}", (length / 60) % 60) + ":" + String.Format("{0:D2}", length % 60);
-            LearningRecordWindow lrw = new LearningRecordWindow(NowNo, first, false, false, timeRecord);
-            lrw.ShowDialog();
-            NowNo++;
-            LearningRecordService.ShowAll();
-            first = false;
+            MessageBoxResult quit = MessageBox.Show("你确定要放弃本次学习吗？", "提示", MessageBoxButton.OKCancel);
+            if(quit == MessageBoxResult.OK)
+            {
+                disTimer.Tick -= new EventHandler(disTimer_Tick);
 
-            //实现主界面的显示，本界面的关闭
-            this.Close();
-            main.Visibility = Visibility.Visible;
-            main.InitializeComponent();
+                int length = learningTime - CountSecond;  //已学习时长
+                                                          //转换为字符串，传入参数
+                String timeRecord = String.Format("{0:D2}", length / 60 / 60) + ":" + String.Format("{0:D2}", (length / 60) % 60) + ":" + String.Format("{0:D2}", length % 60);
+                LearningRecordWindow lrw = new LearningRecordWindow(NowNo, false, timeRecord);
+                lrw.ShowDialog();
+                NowNo++;
+                LearningRecordService.ShowAll();
+                //实现主界面的显示，本界面的关闭
+                this.Close();
+                main.Visibility = Visibility.Visible;
+                main.InitializeComponent();
+            }
+            else
+            {
+                disTimer.Start();
+                mc.play();
+            }   
         }
-      
+       
         void disTimer_Tick(object sender, EventArgs e)   
         {
             int temp = CountSecond;
-            if (CountSecond == -1)  //为了显示效果，故此处设置为-1
+            if (CountSecond == 58)  //为了显示效果，故此处设置为-1
             {             
-                MessageBox.Show("结束");
+                MessageBox.Show("你已成功完成本次学习。");
                 disTimer.Stop(); //关闭计时器
                 mc.StopT(); //关闭音乐               
 
                 this.Close();  //关闭当前窗口
 
                 String timeRecord = String.Format("{0:D2}", learningTime / 60 / 60) + ":" + String.Format("{0:D2}", (learningTime / 60) % 60) + ":" + String.Format("{0:D2}", learningTime % 60);
-                LearningRecordWindow lrw = new LearningRecordWindow(NowNo, first, true, false, timeRecord);
+                LearningRecordWindow lrw = new LearningRecordWindow(NowNo, true, timeRecord);
                 lrw.ShowDialog();
                 NowNo++;
                 LearningRecordService.ShowAll();
-                first = false;
+                first = false; 
 
                 disTimer.Tick -= new EventHandler(disTimer_Tick);
 

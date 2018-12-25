@@ -16,12 +16,12 @@
         <Image x:Name="bg" Height="auto"  Source="Resources/start.png"  Width="679" Grid.ColumnSpan="2" Margin="-5,0,-0.4,0" Stretch="UniformToFill" HorizontalAlignment="Left"/>
         <Button x:Name="StartButton" Content="开始专注" HorizontalAlignment="Left" Margin="281,324,0,0" VerticalAlignment="Top" Width="103" Height="34" Click="Button_Click_1" Grid.Column="1"/>
         <ComboBox x:Name="comboBox" HorizontalAlignment="Left" Margin="10,146,0,0" VerticalAlignment="Top" Width="77" Height="30" SelectionChanged="ComboBox_SelectionChanged" IsDropDownOpen="True" Grid.Column="1">
-            <ComboBoxItem>1</ComboBoxItem>
-            <ComboBoxItem Content="25"/>
-            <ComboBoxItem Content="45"/>
-            <ComboBoxItem Content="60"/>
-            <ComboBoxItem Content="90"/>
-            <ComboBoxItem Content="120"/>
+            <ComboBoxItem Content="1 分钟"/>
+            <ComboBoxItem Content="25 分钟"/>
+            <ComboBoxItem Content="45 分钟"/>
+            <ComboBoxItem Content="60 分钟"/>
+            <ComboBoxItem Content="90 分钟"/>
+            <ComboBoxItem Content="120 分钟"/>
         </ComboBox>
         <Label Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="97,172,0,0" VerticalAlignment="Top"/>
         <Button Grid.ColumnSpan="2" Content="Music" HorizontalAlignment="Left" Margin="10,176,0,0" VerticalAlignment="Top" Width="77" Click="Button_Click_2" Height="30"/>
