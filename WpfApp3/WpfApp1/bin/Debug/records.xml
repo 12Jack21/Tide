@@ -3,29 +3,15 @@
   <LearningRecordManager>
     <recordNo>1</recordNo>
     <RecordNo>1</RecordNo>
-    <LearnDate>2018-12-24T18:20:57.6310589+08:00</LearnDate>
-    <LearnState>false</LearnState>
-    <learnTime>40000000</learnTime>
-  </LearningRecordManager>
-  <LearningRecordManager>
-    <recordNo>2</recordNo>
-    <RecordNo>2</RecordNo>
-    <LearnDate>2018-12-24T18:21:29.6559385+08:00</LearnDate>
-    <LearnState>false</LearnState>
-    <learnTime>260000000</learnTime>
-  </LearningRecordManager>
-  <LearningRecordManager>
-    <recordNo>3</recordNo>
-    <RecordNo>3</RecordNo>
-    <LearnDate>2018-12-24T18:23:23.8308769+08:00</LearnDate>
+    <LearnDate>2018-12-25T21:08:32.2590881+08:00</LearnDate>
     <LearnState>true</LearnState>
     <learnTime>600000000</learnTime>
   </LearningRecordManager>
   <LearningRecordManager>
-    <recordNo>4</recordNo>
-    <RecordNo>4</RecordNo>
-    <LearnDate>2018-12-24T18:32:25.7362635+08:00</LearnDate>
-    <LearnState>false</LearnState>
-    <learnTime>2520000000</learnTime>
+    <recordNo>2</recordNo>
+    <RecordNo>2</RecordNo>
+    <LearnDate>2018-12-25T21:26:34.4258476+08:00</LearnDate>
+    <LearnState>true</LearnState>
+    <learnTime>600000000</learnTime>
   </LearningRecordManager>
 </ArrayOfLearningRecordManager>

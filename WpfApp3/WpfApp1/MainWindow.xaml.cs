@@ -97,6 +97,8 @@ namespace WpfApp1
             //主界面的隐藏
             //显示时钟界面
             MainForm.Visibility = Visibility.Hidden;
+
+            //计时器开始运行
             t = new Timer(disTimer, mc, countSecond, this,NowNo, first);
             t.ShowDialog();
             t.CountSecond = countSecond;

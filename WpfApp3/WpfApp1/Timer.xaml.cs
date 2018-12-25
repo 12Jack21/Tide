@@ -26,8 +26,15 @@ namespace WpfApp1
         public int CountSecond, learningTime;  //计时总秒数;
         MainWindow main;
 
+        ProcManager pm;
+
         public Timer(DispatcherTimer t, MusicManager m, int time, MainWindow w, int num, bool f)
         {
+            pm = new ProcManager();
+            pm.init();
+            pm.addGameName("TIM");
+            pm.addGameName("chrome");
+
             disTimer = t;      //初始化
             mc = m;
             learningTime = CountSecond = time;   //时间
@@ -65,6 +72,8 @@ namespace WpfApp1
 
         private void GiveUp(object sender, RoutedEventArgs e)  //放弃
         {
+            pm.countResult(); //监控
+
             mc.Puase();
             disTimer.Stop();
             
@@ -84,9 +93,46 @@ namespace WpfApp1
             main.Visibility = Visibility.Visible;
             main.InitializeComponent();
         }
-      
+        
+        //每个时间间隔都执行的处理函数（监控进程
         void disTimer_Tick(object sender, EventArgs e)   
         {
+            pm.onceMonitor();
+            //游戏超时
+            if(!pm.checkGameTime())
+            {
+                mc.Puase();
+                disTimer.Stop();
+                MessageBoxResult result = MessageBox.Show("你的游戏时间太长了，需要结束学习吗?", "End confirm", MessageBoxButton.OKCancel);
+                if(result == MessageBoxResult.OK)
+                {
+                    disTimer.Stop(); //关闭计时器
+                    mc.StopT(); //关闭音乐               
+
+                    this.Close();  //关闭当前窗口
+
+                    String timeRecord = String.Format("{0:D2}", learningTime / 60 / 60) + ":" + String.Format("{0:D2}", (learningTime / 60) % 60) + ":" + String.Format("{0:D2}", learningTime % 60);
+                    LearningRecordWindow lrw = new LearningRecordWindow(NowNo, first, true, false, timeRecord);
+                    lrw.ShowDialog();
+                    NowNo++;
+                    LearningRecordService.ShowAll();
+                    first = false;
+
+                    disTimer.Tick -= new EventHandler(disTimer_Tick);
+
+                    main.Visibility = Visibility.Visible;  //显示主窗口
+                }
+                else
+                {
+                    pm.clearGameTime();
+                    mc.play();
+                    disTimer.Start();
+                }
+            }
+
+            //  cbssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
+
+
             int temp = CountSecond;
             if (CountSecond == -1)  //为了显示效果，故此处设置为-1
             {             
