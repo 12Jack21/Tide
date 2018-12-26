@@ -72,12 +72,6 @@ namespace VisifireShow
             //向图标添加标题
             chart.Titles.Add(title);
 
-            //Axis yAxis = new Axis();
-            ////设置图标中Y轴的最小值永远为0           
-            //yAxis.AxisMinimum = 0;
-            ////设置图表中Y轴的后缀          
-            //yAxis.Suffix = "斤";
-            //chart.AxesY.Add(yAxis);
 
             // 创建一个新的数据线。               
             DataSeries dataSeries = new DataSeries();

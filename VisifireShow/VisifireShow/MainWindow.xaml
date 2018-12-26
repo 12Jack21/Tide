@@ -4,7 +4,7 @@
         Title="MainWindow" Height="500" Width="710">
     <Grid>
 
-        <Button Content="饼状图" x:Name="ButPie" HorizontalAlignment="Left" Margin="10,116,0,0" VerticalAlignment="Top" Width="75" Click="ButPie_Click"/>
+        <Button Content="开始传参" x:Name="ButPie" HorizontalAlignment="Left" Margin="295,206,0,0" VerticalAlignment="Top" Width="75" Click="ButPie_Click"/>
         <Grid Name="Simon">
 
         </Grid>
