@@ -54,3 +54,4 @@ E:\2018C#Homework\newTide\Tide\Tide\WpfApp3\WpfApp1\obj\Debug\WpfApp1.g.resource
 E:\2018C#Homework\newTide\Tide\Tide\WpfApp3\WpfApp1\obj\Debug\WpfApp1.Properties.Resources.resources
 E:\2018C#Homework\newTide\Tide\Tide\WpfApp3\WpfApp1\obj\Debug\WpfApp1.csproj.GenerateResource.cache
 E:\2018C#Homework\newTide\Tide\Tide\WpfApp3\WpfApp1\obj\Debug\WpfApp1.csproj.CoreCompileInputs.cache
+E:\2018C#Homework\newTide\Tide\Tide\WpfApp3\WpfApp1\obj\Debug\GeneratedInternalTypeHelper.g.cs

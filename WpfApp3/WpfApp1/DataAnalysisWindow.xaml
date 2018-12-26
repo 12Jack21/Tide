@@ -6,7 +6,9 @@
         xmlns:local="clr-namespace:WpfApp1"
         mc:Ignorable="d"
         Title="DataAnalysisWindow" Height="450" Width="800">
+    
     <Grid>
-        
+        <Label x:Name="NoLabel" Content="{Binding Path = No}" HorizontalAlignment="Left" Margin="279,160,0,0" VerticalAlignment="Top" Width="278" Height="96" />
+
     </Grid>
 </Window>

@@ -24,9 +24,9 @@
             <ComboBoxItem Content="120 分钟"/>
         </ComboBox>
         <Label Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="97,172,0,0" VerticalAlignment="Top"/>
-        <Button Grid.ColumnSpan="2" Content="Music" HorizontalAlignment="Left" Margin="10,176,0,0" VerticalAlignment="Top" Width="77" Click="Button_Click_2" Height="30"/>
-        <Button Grid.ColumnSpan="2" Content="Background" HorizontalAlignment="Left" Margin="10,206,0,0" VerticalAlignment="Top" Width="77" Click="Button_Click_5" Height="30"/>
-        <Button Grid.ColumnSpan="2" Content="Records" HorizontalAlignment="Left" Margin="10,236,0,0" VerticalAlignment="Top" Width="77" Height="30" Click="Button_Click_6"/>
+        <Button Grid.ColumnSpan="2" Content="音乐" HorizontalAlignment="Left" Margin="10,176,0,0" VerticalAlignment="Top" Width="77" Click="Button_Click_2" Height="30"/>
+        <Button Grid.ColumnSpan="2" Content="图片" HorizontalAlignment="Left" Margin="10,206,0,0" VerticalAlignment="Top" Width="77" Click="Button_Click_5" Height="30"/>
+        <Button Grid.ColumnSpan="2" Content="记录" HorizontalAlignment="Left" Margin="10,236,0,0" VerticalAlignment="Top" Width="77" Height="30" Click="Button_Click_6"/>
 
     </Grid>
 </Window>

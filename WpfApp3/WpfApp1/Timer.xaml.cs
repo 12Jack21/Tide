@@ -25,9 +25,15 @@ namespace WpfApp1
         MusicManager mc = new MusicManager();   //播放音乐
         public int CountSecond, learningTime;  //计时总秒数;
         MainWindow main;
+        ProcManager pm;
 
         public Timer(DispatcherTimer t, MusicManager m, int time, MainWindow w, int num, bool f)
         {
+            pm = new ProcManager();
+            pm.init();
+            pm.addGameName("TIM");
+            pm.addGameName("chrome");
+
             disTimer = t;      //初始化
             mc = m;
             learningTime = CountSecond = time;   //时间
@@ -65,8 +71,11 @@ namespace WpfApp1
 
         private void GiveUp(object sender, RoutedEventArgs e)  //放弃
         {
+            //存放当前一次学习中使用的程序信息，用List存储，并将其传到学习记录窗口
+            List<Proc> procResult = pm.countResult();
             mc.Puase();
             disTimer.Stop();
+            
             MessageBoxResult quit = MessageBox.Show("你确定要放弃本次学习吗？", "提示", MessageBoxButton.OKCancel);
             if(quit == MessageBoxResult.OK)
             {
@@ -75,7 +84,7 @@ namespace WpfApp1
                 int length = learningTime - CountSecond;  //已学习时长
                                                           //转换为字符串，传入参数
                 String timeRecord = String.Format("{0:D2}", length / 60 / 60) + ":" + String.Format("{0:D2}", (length / 60) % 60) + ":" + String.Format("{0:D2}", length % 60);
-                LearningRecordWindow lrw = new LearningRecordWindow(NowNo, false, timeRecord);
+                LearningRecordWindow lrw = new LearningRecordWindow(NowNo, false, timeRecord, procResult);
                 lrw.ShowDialog();
                 NowNo++;
                 LearningRecordService.ShowAll();
@@ -93,21 +102,55 @@ namespace WpfApp1
        
         void disTimer_Tick(object sender, EventArgs e)   
         {
+            pm.onceMonitor();
+            //游戏超时
+            if (!pm.checkGameTime())
+            {
+                mc.Puase();
+                disTimer.Stop();
+                MessageBoxResult result = MessageBox.Show("你的游戏时间太长了，需要结束学习吗?", "End confirm", MessageBoxButton.OKCancel);
+                if (result == MessageBoxResult.OK)
+                {
+                    disTimer.Stop(); //关闭计时器
+                    mc.StopT(); //关闭音乐               
+
+                    this.Close();  //关闭当前窗口
+                    //存放当前一次学习中使用的程序信息，用List存储，并将其传到学习记录窗口
+                    List<Proc> procResult = pm.countResult();
+                    String timeRecord = String.Format("{0:D2}", learningTime / 60 / 60) + ":" + String.Format("{0:D2}", (learningTime / 60) % 60) + ":" + String.Format("{0:D2}", learningTime % 60);
+                    LearningRecordWindow lrw = new LearningRecordWindow(NowNo,false, timeRecord, procResult);
+                    lrw.ShowDialog();
+                    NowNo++;
+                    LearningRecordService.ShowAll();
+
+                    disTimer.Tick -= new EventHandler(disTimer_Tick);
+
+                    main.Visibility = Visibility.Visible;  //显示主窗口
+                }
+                else
+                {
+                    pm.clearGameTime();
+                    mc.play();
+                    disTimer.Start();
+                    return;
+                }
+            }
+
             int temp = CountSecond;
-            if (CountSecond == 58)  //为了显示效果，故此处设置为-1
+            if (CountSecond == 57)  //为了显示效果，故此处设置为-1
             {             
                 MessageBox.Show("你已成功完成本次学习。");
                 disTimer.Stop(); //关闭计时器
                 mc.StopT(); //关闭音乐               
 
                 this.Close();  //关闭当前窗口
-
+                //存放当前一次学习中使用的程序信息，用List存储，并将其传到学习记录窗口
+                List<Proc> procResult = pm.countResult();
                 String timeRecord = String.Format("{0:D2}", learningTime / 60 / 60) + ":" + String.Format("{0:D2}", (learningTime / 60) % 60) + ":" + String.Format("{0:D2}", learningTime % 60);
-                LearningRecordWindow lrw = new LearningRecordWindow(NowNo, true, timeRecord);
+                LearningRecordWindow lrw = new LearningRecordWindow(NowNo, true, timeRecord, procResult);
                 lrw.ShowDialog();
                 NowNo++;
                 LearningRecordService.ShowAll();
-                first = false; 
 
                 disTimer.Tick -= new EventHandler(disTimer_Tick);
 
@@ -117,6 +160,7 @@ namespace WpfApp1
             }
             else
             {
+
                 second = CountSecond % 60;
                 minute = (CountSecond / 60) % 60;
                 hour = CountSecond / 60 / 60;

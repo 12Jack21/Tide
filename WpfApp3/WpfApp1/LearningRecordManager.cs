@@ -16,8 +16,9 @@ namespace WpfApp1
         private TimeSpan learnTime;
         private bool learnState;//判定学习是否完成
         private string learnStateResult;//根据学习状态的判定打印相应的信息
+        public List<Proc> pm;
         public LearningRecordManager() { }
-        public LearningRecordManager(int rn, DateTime ld, TimeSpan lt, bool ls)
+        public LearningRecordManager(int rn, DateTime ld, TimeSpan lt, bool ls, List<Proc>pm)
         {
             recordNo = rn;
             learnTime = lt;
@@ -31,10 +32,25 @@ namespace WpfApp1
             {
                 learnStateResult = "未完成";
             }
-            //monitor = m;
+            this.pm = pm;
         }
         //用于数据绑定
         public event PropertyChangedEventHandler PropertyChanged;
+        List<Proc> Pm
+        {
+            get
+            {
+                return pm;
+            }
+            set
+            {
+                pm = value;
+                if (PropertyChanged != null)
+                {
+                    PropertyChanged.Invoke(this, new PropertyChangedEventArgs("Age"));
+                }
+            }
+        }
         public int RecordNo
         {
             get
