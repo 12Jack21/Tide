@@ -130,7 +130,9 @@ namespace WpfApp1
         {
             durLength = "";
             durLength = durLength.PadLeft(128, Convert.ToChar(" "));
+            Console.WriteLine(durLength);
             APIClass.mciSendString("status media length", durLength, durLength.Length, 0);
+            Console.WriteLine(durLength);
             durLength = durLength.Trim();
             string curLength;
             curLength = "";

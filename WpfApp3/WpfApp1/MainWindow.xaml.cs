@@ -49,34 +49,6 @@ namespace WpfApp1
            
         }
 
-        private void Button_Click_2(object sender, RoutedEventArgs e)  //选择文件目录
-        {
-           
-            //System.Diagnostics.Process.Start("Explorer.exe", "c:\\");
-            OpenFileDialog fileDialog = new OpenFileDialog();
-            fileDialog.Multiselect = true;
-            fileDialog.Title = "请选择文件";
-            fileDialog.Filter = "所有文件(*.*)|*.*";
-            
-            if (fileDialog.ShowDialog() == true)   //如果点击“打开”键
-            {
-                mc.FileName = fileDialog.FileName;
-               
-            }
-        }
-
-        private void Button_Click_5(object sender, RoutedEventArgs e)    //按钮点击，切换图片
-        {
-            OpenFileDialog fileDialog = new OpenFileDialog();
-            fileDialog.Multiselect = true;
-            fileDialog.Title = "请选择文件";
-            fileDialog.Filter = "所有文件(*.*)|*.*";
-            if (fileDialog.ShowDialog() == true)   //如果点击“打开”键
-            {
-                bg.Source = new BitmapImage(new Uri(fileDialog.FileName));
-            }
-        }
-
         private void Button_Click_6(object sender, RoutedEventArgs e)  //查询学习记录
         {
             LearningRecordWindow lrw = new LearningRecordWindow(NowNo, first,false,true,null);   //学习状态如何传递
@@ -87,8 +59,8 @@ namespace WpfApp1
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)   //开始专注点击事件
-        {        
-          
+        {
+           // mc.FileName = new MusicChoice().Forest();
             if (comboBox.Text == null)
                 MessageBox.Show("未选择时间！");
 
@@ -102,6 +74,25 @@ namespace WpfApp1
             t = new Timer(disTimer, mc, countSecond, this,NowNo, first);
             t.ShowDialog();
             t.CountSecond = countSecond;
-        }                
+        }
+
+        private void ComboBoxItem1(object sender, RoutedEventArgs e)
+        {
+            MusicChoice m = new MusicChoice();
+            mc.FileName = m.Forest();
+            bg.Source = new BitmapImage(new Uri(m.ForestPicture()));
+        }
+        private void ComboBoxItem2(object sender, RoutedEventArgs e)
+        {
+            MusicChoice m = new MusicChoice();
+            mc.FileName = m.Rain();
+            bg.Source = new BitmapImage(new Uri(m.RainPicture()));
+        }
+        private void ComboBoxItem3(object sender, RoutedEventArgs e)
+        {
+            MusicChoice m = new MusicChoice();
+            mc.FileName = m.Waves();
+            bg.Source = new BitmapImage(new Uri(m.WavesPicture()));
+        }
     }
 }
