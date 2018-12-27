@@ -93,9 +93,9 @@ namespace WpfApp1.Properties {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap c62d5801563e48057a6833d531d8bfea {
+        internal static System.Drawing.Bitmap man {
             get {
-                object obj = ResourceManager.GetObject("c62d5801563e48057a6833d531d8bfea", resourceCulture);
+                object obj = ResourceManager.GetObject("man", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -103,9 +103,9 @@ namespace WpfApp1.Properties {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap man {
+        internal static System.Drawing.Bitmap start {
             get {
-                object obj = ResourceManager.GetObject("man", resourceCulture);
+                object obj = ResourceManager.GetObject("start", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

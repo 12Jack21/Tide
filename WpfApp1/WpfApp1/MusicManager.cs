@@ -5,7 +5,7 @@ using System.Windows.Controls;
 using System.Windows.Threading;
 namespace WpfApp1
 {
-    class MusicManager
+    public class MusicManager
     {
         public MusicManager()
         {
@@ -50,6 +50,7 @@ namespace WpfApp1
                 try
                 {
                     TemStr = "";
+                    Name = "";
                     TemStr = TemStr.PadLeft(127, Convert.ToChar(" "));
                     Name = Name.PadLeft(260, Convert.ToChar(" "));
                     mc.iName = value;
@@ -73,7 +74,7 @@ namespace WpfApp1
         {
             TemStr = "";
             TemStr = TemStr.PadLeft(127, Convert.ToChar(" "));
-            APIClass.mciSendString("play media", TemStr, TemStr.Length, 0);
+            APIClass.mciSendString("play media repeat", TemStr, TemStr.Length, 0);
             mc.state = State.mPlaying;
         }
         //停止
