@@ -1,10 +1,2 @@
 <?xml version="1.0"?>
-<ArrayOfLearningRecordManager xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <LearningRecordManager>
-    <recordNo>1</recordNo>
-    <RecordNo>1</RecordNo>
-    <LearnDate>2018-12-25T21:44:48.7597367+08:00</LearnDate>
-    <LearnState>false</LearnState>
-    <learnTime>15000000000</learnTime>
-  </LearningRecordManager>
-</ArrayOfLearningRecordManager>
+<ArrayOfLearningRecordManager xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
