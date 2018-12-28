@@ -212,7 +212,7 @@ namespace WpfApp1
                 procName.Add(m.Name);
                 procTime.Add(m.Time);
             }
-            daw = new DataAnalysisWindow(selectedNo, procName, procTime, recordList);
+            daw = new DataAnalysisWindow( procName, procTime);
             daw.ShowDialog();
         }
 
