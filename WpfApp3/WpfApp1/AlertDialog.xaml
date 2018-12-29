@@ -1,0 +1,90 @@
+﻿<Window x:Class="WpfApp1.AlertDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApp1"
+        mc:Ignorable="d"
+        Title="AlertDialog" Height="450" Width="800">
+    <Grid Margin="0,0,3.6,0">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="0*"/>
+        </Grid.ColumnDefinitions>
+        <Button x:Name="confirm" Content="确定，我不学了" HorizontalAlignment="Left" Margin="167,272,0,0" VerticalAlignment="Top" Width="165" Height="93" Click="Button_Click_1" FontSize="18">
+            <Button.Template>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="0" CornerRadius="8,8,8,8" x:Name="PART_Background">
+                        <Border.Background>
+                            <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                                <GradientStop Color="White" Offset="0.0" />
+                                <GradientStop Color="Silver" Offset="0.5" />
+                                <GradientStop Color="White" Offset="0.0" />
+                            </LinearGradientBrush>
+                        </Border.Background>
+                        <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" TargetName="PART_Background">
+                                <Setter.Value>
+                                    <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                                        <GradientStop Color="Silver" Offset="0.0" />
+                                        <GradientStop Color="White" Offset="0.5" />
+                                        <GradientStop Color="Silver" Offset="0.0" />
+                                    </LinearGradientBrush>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter Property="Effect">
+                                <Setter.Value>
+                                    <DropShadowEffect BlurRadius="10" Color="Black" Direction="0" Opacity="0.6" RenderingBias="Performance" ShadowDepth="0" />
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
+        <Button x:Name="cancel" Content="取消，我要继续学习" HorizontalAlignment="Left" Margin="490,272,0,0" VerticalAlignment="Top" Width="163" Height="93" Click="Button_Click_2" FontSize="18" RenderTransformOrigin="0.415,0.539">
+            <Button.Template>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="0" CornerRadius="8,8,8,8" x:Name="PART_Background">
+                        <Border.Background>
+                            <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                                <GradientStop Color="White" Offset="0.0" />
+                                <GradientStop Color="Silver" Offset="0.5" />
+                                <GradientStop Color="White" Offset="0.0" />
+                            </LinearGradientBrush>
+                        </Border.Background>
+                        <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" TargetName="PART_Background">
+                                <Setter.Value>
+                                    <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                                        <GradientStop Color="Silver" Offset="0.0" />
+                                        <GradientStop Color="White" Offset="0.5" />
+                                        <GradientStop Color="Silver" Offset="0.0" />
+                                    </LinearGradientBrush>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter Property="Effect">
+                                <Setter.Value>
+                                    <DropShadowEffect BlurRadius="10" Color="Black" Direction="0" Opacity="0.6" RenderingBias="Performance" ShadowDepth="0" />
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
+        <Label x:Name="qustion" Content="你确定不学了吗" Margin="231,151,215.4,179" FontSize="48" RenderTransformOrigin="0.499,0.513"/>
+        <Label x:Name="TipLabel" Content="使用软件" HorizontalAlignment="Left" Margin="304,84,0,0" VerticalAlignment="Top" Height="32" Width="197" FontSize="20" Initialized="TipLabel_Initialized"/>
+
+    </Grid>
+</Window>
