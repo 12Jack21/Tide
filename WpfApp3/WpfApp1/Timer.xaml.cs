@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,9 +26,17 @@ namespace WpfApp1
         MusicManager mc = new MusicManager();   //播放音乐
         public int CountSecond, learningTime;  //计时总秒数;
         MainWindow main;
-
-        public Timer(DispatcherTimer t, MusicManager m, int time, MainWindow w, int num, bool f)
+        ProcManager pm;
+        AlertDialog alert;
+        int coin = 0;//金币
+        int timeSpan;//学习时长
+        public Timer(DispatcherTimer t, MusicManager m, int time, MainWindow w, int num, bool f,BitmapImage photo,string choice)
         {
+            pm = new ProcManager();
+            pm.init();
+            pm.addGameName("TIM");
+            pm.addGameName("chrome");
+            timeSpan = int.Parse(choice);
             disTimer = t;      //初始化
             mc = m;
             learningTime = CountSecond = time;   //时间
@@ -36,11 +45,17 @@ namespace WpfApp1
             NowNo = num;                                      //将文件中数据数传入，防止覆盖
             first = f;
             Start();  //调用开始计时函数
+            if (photo != null)
+                timer1.Source = photo;
         }
 
         public int NowNo { get; private set; }
         public bool first { get; private set; }
 
+        public void setCoin(int coin)
+        {
+            this.coin = coin;
+        }
         private void Pause(object sender, RoutedEventArgs e)  //暂停
         {
 
@@ -65,52 +80,108 @@ namespace WpfApp1
 
         private void GiveUp(object sender, RoutedEventArgs e)  //放弃
         {
+            //存放当前一次学习中使用的程序信息，用List存储，并将其传到学习记录窗口
+            List<Proc> procResult = pm.countResult();
             mc.Puase();
             disTimer.Stop();
             
-            disTimer.Tick -= new EventHandler(disTimer_Tick);
-            
-            int length = learningTime - CountSecond;  //已学习时长
-            //转换为字符串，传入参数
-            String timeRecord = String.Format("{0:D2}", length / 60 / 60) + ":" + String.Format("{0:D2}", (length / 60) % 60) + ":" + String.Format("{0:D2}", length % 60);
-            LearningRecordWindow lrw = new LearningRecordWindow(NowNo, first, false, false, timeRecord);
-            lrw.ShowDialog();
-            NowNo++;
-            LearningRecordService.ShowAll();
-            first = false;
+            MessageBoxResult quit = MessageBox.Show("你确定要放弃本次学习吗？", "提示", MessageBoxButton.OKCancel);
+            if(quit == MessageBoxResult.OK)
+            {
+                disTimer.Tick -= new EventHandler(disTimer_Tick);
 
-            //实现主界面的显示，本界面的关闭
-            this.Close();
-            main.Visibility = Visibility.Visible;
-            main.InitializeComponent();
-        }
-      
-        void disTimer_Tick(object sender, EventArgs e)   
-        {
-            int temp = CountSecond;
-            if (CountSecond == -1)  //为了显示效果，故此处设置为-1
-            {             
-                MessageBox.Show("结束");
-                disTimer.Stop(); //关闭计时器
-                mc.StopT(); //关闭音乐               
-
-                this.Close();  //关闭当前窗口
-
-                String timeRecord = String.Format("{0:D2}", learningTime / 60 / 60) + ":" + String.Format("{0:D2}", (learningTime / 60) % 60) + ":" + String.Format("{0:D2}", learningTime % 60);
-                LearningRecordWindow lrw = new LearningRecordWindow(NowNo, first, true, false, timeRecord);
+                int length = learningTime - CountSecond;  //已学习时长
+                                                          //转换为字符串，传入参数
+                String timeRecord = String.Format("{0:D2}", length / 60 / 60) + ":" + String.Format("{0:D2}", (length / 60) % 60) + ":" + String.Format("{0:D2}", length % 60);
+                LearningRecordWindow lrw = new LearningRecordWindow(NowNo, false, timeRecord, procResult,coin);
                 lrw.ShowDialog();
                 NowNo++;
                 LearningRecordService.ShowAll();
-                first = false;
-
-                disTimer.Tick -= new EventHandler(disTimer_Tick);
-
-                main.Visibility = Visibility.Visible;  //显示主窗口
-
-                
+                //实现主界面的显示，本界面的关闭
+                this.Close();
+                main.Visibility = Visibility.Visible;
+                main.InitializeComponent();
             }
             else
             {
+                disTimer.Start();
+                mc.play();
+            }   
+        }
+
+        //显示警告对话框
+        void showAlertDialog()
+        {
+            alert = new AlertDialog(pm.getGameName(), pm.getTime());
+            alert.ShowDialog();
+        }
+        //时钟
+        void disTimer_Tick(object sender, EventArgs e)   
+        {
+            pm.onceMonitor();
+            //游戏超时
+            if (!pm.checkGameTime())
+            {
+                mc.Puase();
+                disTimer.Stop();
+
+                //显示警告框
+                showAlertDialog();
+                if (alert.isConfirm)
+                {
+                    disTimer.Stop(); //关闭计时器
+                    mc.StopT(); //关闭音乐               
+
+                    this.Close();  //关闭当前窗口
+                    //存放当前一次学习中使用的程序信息，用List存储，并将其传到学习记录窗口
+                    List<Proc> procResult = pm.countResult();
+                    String timeRecord = String.Format("{0:D2}", learningTime / 60 / 60) + ":" + String.Format("{0:D2}", (learningTime / 60) % 60) + ":" + String.Format("{0:D2}", learningTime % 60);
+                    LearningRecordWindow lrw = new LearningRecordWindow(NowNo, false, timeRecord, procResult, coin);
+                    lrw.ShowDialog();
+                    NowNo++;
+                    LearningRecordService.ShowAll();
+
+                    disTimer.Tick -= new EventHandler(disTimer_Tick);
+                    main.Visibility = Visibility.Visible;  //显示主窗口
+                }
+                else
+                {
+                    pm.clearGameTime();
+                    mc.play();
+                    disTimer.Start();
+                    return;
+                }
+            }
+
+            int temp = CountSecond;
+            if (CountSecond == -1)  //为了显示效果，故此处设置为-1
+            {
+                MessageBox.Show("你已成功完成本次学习，金币加"+timeSpan+"!");
+                disTimer.Stop(); //关闭计时器
+                mc.StopT(); //关闭音乐               
+                this.Close();  //关闭当前窗口
+                //存放当前一次学习中使用的程序信息，用List存储，并将其传到学习记录窗口
+                List<Proc> procResult = pm.countResult();
+                String timeRecord = String.Format("{0:D2}", learningTime / 60 / 60) + ":" + String.Format("{0:D2}", (learningTime / 60) % 60) + ":" + String.Format("{0:D2}", learningTime % 60);
+                LearningRecordWindow lrw = new LearningRecordWindow(NowNo, true, timeRecord, procResult,coin);
+                lrw.ShowDialog();
+                NowNo++;
+                LearningRecordService.ShowAll();
+
+                disTimer.Tick -= new EventHandler(disTimer_Tick);
+                main.coin += timeSpan;
+                main.Visibility = Visibility.Visible;  //显示主窗口
+                StreamWriter sw2 = new StreamWriter(@"1.txt", false, Encoding.UTF8);
+                sw2.WriteLine(main.coin);
+                sw2.WriteLine(main.lock1);
+                sw2.WriteLine(main.lock2);
+                sw2.Close();
+                main.MoneyL.Content = "当前金币数："+main.coin;
+
+            }
+            else
+            {
+
                 second = CountSecond % 60;
                 minute = (CountSecond / 60) % 60;
                 hour = CountSecond / 60 / 60;

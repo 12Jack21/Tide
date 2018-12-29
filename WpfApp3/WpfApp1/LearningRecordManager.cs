@@ -14,19 +14,60 @@ namespace WpfApp1
         public int recordNo;
         private DateTime learnDate;
         private TimeSpan learnTime;
-        private bool learnState;
-        //public List<Monitor> monitor{get;set;}//添加监控的软件及使用时间
+        private bool learnState;//判定学习是否完成
+        private string learnStateResult;//根据学习状态的判定打印相应的信息
+        public List<Proc> pm;
+        private int coin;
         public LearningRecordManager() { }
-        public LearningRecordManager(int rn, DateTime ld, TimeSpan lt, bool ls/* List<Monitor> m*/)
+        public LearningRecordManager(int rn, DateTime ld, TimeSpan lt, bool ls, List<Proc>pm, int c)
         {
             recordNo = rn;
             learnTime = lt;
             learnDate = ld;
             learnState = ls;
-            //monitor = m;
+            if (ls)
+            {
+                learnStateResult = "已完成";
+            }
+            else
+            {
+                learnStateResult = "未完成";
+            }
+            this.pm = pm;
+            this.coin = c;
         }
         //用于数据绑定
         public event PropertyChangedEventHandler PropertyChanged;
+        List<Proc> Pm
+        {
+            get
+            {
+                return pm;
+            }
+            set
+            {
+                pm = value;
+                if (PropertyChanged != null)
+                {
+                    PropertyChanged.Invoke(this, new PropertyChangedEventArgs("Proc"));
+                }
+            }
+        }
+        public int Coin
+        {
+            get
+            {
+                return coin;
+            }
+            set
+            {
+                coin = value;
+                if (PropertyChanged != null)
+                {
+                    PropertyChanged.Invoke(this, new PropertyChangedEventArgs("Coin"));
+                }
+            }
+        }
         public int RecordNo
         {
             get
@@ -38,7 +79,7 @@ namespace WpfApp1
                 recordNo = value;
                 if (PropertyChanged != null)
                 {
-                    PropertyChanged.Invoke(this, new PropertyChangedEventArgs("Age"));
+                    PropertyChanged.Invoke(this, new PropertyChangedEventArgs("RecordNo"));
                 }
             }
         }
@@ -50,19 +91,34 @@ namespace WpfApp1
                 learnDate = value;
                 if (PropertyChanged != null)
                 {
-                    PropertyChanged.Invoke(this, new PropertyChangedEventArgs("Age"));
+                    PropertyChanged.Invoke(this, new PropertyChangedEventArgs("LearnDate"));
+                }
+            }
+        }
+        public string LearnStateResult
+        {
+            get { return learnStateResult; }
+            set
+            {
+                learnStateResult = value;
+                if (PropertyChanged != null)
+                {
+                    PropertyChanged.Invoke(this, new PropertyChangedEventArgs("LearnStateResult"));
                 }
             }
         }
         public bool LearnState
         {
-            get { return learnState; }
+            get
+            {
+                return learnState;
+            }
             set
             {
                 learnState = value;
                 if (PropertyChanged != null)
                 {
-                    PropertyChanged.Invoke(this, new PropertyChangedEventArgs("Age"));
+                    PropertyChanged.Invoke(this, new PropertyChangedEventArgs("LearnState"));
                 }
             }
         }
@@ -75,7 +131,7 @@ namespace WpfApp1
                 learnTime = value;
                 if (PropertyChanged != null)
                 {
-                    PropertyChanged.Invoke(this, new PropertyChangedEventArgs("Age"));
+                    PropertyChanged.Invoke(this, new PropertyChangedEventArgs("LearnTime"));
                 }
             }
         }
@@ -85,15 +141,7 @@ namespace WpfApp1
             get { return learnTime.Ticks; }
             set { learnTime = new TimeSpan(value); }
         }
-        //public void AddMonitor(Monitor m)
-        //{
-        //    if (this.monitor.Contains(m))
-        //    {
-        //        throw new Exception("The monitor has existed, you don't need to add it.");
-        //    }
-        //    monitor.Add(m);
-        // }
-
+        
     }
 
 }

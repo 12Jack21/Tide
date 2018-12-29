@@ -6,29 +6,363 @@
         xmlns:local="clr-namespace:WpfApp1"
         mc:Ignorable="d"
         Title="LearningRecordWindow" Height="450" Width="800">
+    <Window.Resources>
+        <Style x:Key="listview" TargetType="{x:Type ListView}">
+            <Setter Property="TextBlock.TextAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="5"/>
+           
+            <Setter Property="Foreground" Value="#FF282828"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="SelectionMode" Value="Single"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled"/>
+            <Setter Property="ScrollViewer.CanContentScroll" Value="True"/>
+            <Setter Property="AlternationCount" Value="2"/>
+            <!--ListViewItem模板-->
+            <Setter Property="ItemContainerStyle">
+                <Setter.Value>
+                    <Style TargetType="{x:Type ListViewItem}">
+                        <Setter Property="Height" Value="60"/>
+                        <Setter Property="FontSize" Value="20"/>
+                        <Setter Property="Background" Value="#fff"/>
+                        <Setter Property="BorderBrush" Value="transparent"/>
+                        <Setter Property="BorderThickness" Value="0"/>
+                        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                        <Setter Property="VerticalContentAlignment" Value="Center"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type ListViewItem}">
+                                    <Border Background="{TemplateBinding Background}"
+                                        BorderBrush="{TemplateBinding BorderBrush}"
+                                        BorderThickness="{TemplateBinding BorderThickness}">
+                                        <GridViewRowPresenter Content="{TemplateBinding Content}"
+                                                          Columns="{TemplateBinding GridView.ColumnCollection}"/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <Trigger Property="ItemsControl.AlternationIndex" Value="1">
+                                <Setter Property="Background" Value="#ddd"/>
+                            </Trigger>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter Property="Background" Value="#FFC34D"/>
+                                <Setter Property="BorderBrush" Value="#555"/>
+                                <Setter Property="BorderThickness" Value="1"/>
+                                <Setter Property="FontSize" Value="22"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="ToggleButton" x:Key="ComboxStyleBtn">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Border x:Name="Back" Background="#F7FDF7" BorderThickness="1" BorderBrush="Transparent">
+                            <Path Name="PathFill" Fill="#59CA4F" Width="8" Height="6" StrokeThickness="0" Data="M5,0 L10,10 L0,10 z" RenderTransformOrigin="0.5,0.5" Stretch="Fill">
+                                <Path.RenderTransform>
+                                    <TransformGroup>
+                                        <ScaleTransform/>
+                                        <SkewTransform/>
+                                        <RotateTransform Angle="180"/>
+                                        <TranslateTransform/>
+                                    </TransformGroup>
+                                </Path.RenderTransform>
+                            </Path>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="PathFill" Property="Fill" Value="White"></Setter>
+                                <Setter TargetName="Back" Property="Background" Value="#59CA4F"></Setter>
+                                <Setter TargetName="Back" Property="BorderBrush" Value="#59CA4F"></Setter>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!--Combox-->
+        <Style TargetType="ComboBox" x:Key="ComboBoxStyle">
+            <Setter Property="ItemContainerStyle">
+                <Setter.Value>
+                    <!--ComBoxItem-->
+                    <Style TargetType="ComboBoxItem">
+                        <Setter Property="MinHeight" Value="22"></Setter>
+                        <Setter Property="MinWidth" Value="60"></Setter>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="ComboBoxItem">
+                                    <Border Name="Back" Background="Transparent"  BorderThickness="0,0,0,0" BorderBrush="#81D779" >
+                                        <ContentPresenter ContentSource="{Binding Source}" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5,0,0,0"></ContentPresenter>
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter TargetName="Back" Property="Background" Value="LightGray"></Setter>
+                                        </Trigger>
+                                        <Trigger Property="IsHighlighted" Value="True">
+                                            <Setter TargetName="Back" Property="Background" Value="LightGray"></Setter>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ComboBox">
+                        <Grid Background="#F7FDF7">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="0.7*"/>
+                                <ColumnDefinition Width="0.3*" MaxWidth="20"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBox  Grid.Column="0" IsReadOnly="{TemplateBinding IsReadOnly}" Text="{TemplateBinding Text}"></TextBox>
+                            <Border  Grid.Column="0" BorderThickness="1,1,0,1" BorderBrush="#81D779" CornerRadius="1,0,0,1">
+
+                            </Border>
+                            <Border Grid.Column="1" BorderThickness="0,1,1,1" BorderBrush="#81D779" CornerRadius="0,1,1,0">
+                                <ToggleButton Style="{StaticResource ComboxStyleBtn}" IsChecked="{Binding Path=IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}" ClickMode="Press"></ToggleButton>
+                            </Border>
+                            <Popup IsOpen="{TemplateBinding IsDropDownOpen}" Placement="Bottom" x:Name="Popup" Focusable="False" AllowsTransparency="True" PopupAnimation="Slide">
+                                <Border CornerRadius="1" MaxHeight="{TemplateBinding MaxDropDownHeight}" MinWidth="{TemplateBinding ActualWidth}" x:Name="DropDown" SnapsToDevicePixels="True">
+                                    <Border.Effect>
+                                        <DropShadowEffect Color="Black" BlurRadius="2" ShadowDepth="0" Opacity="0.5"/>
+                                    </Border.Effect>
+                                    <ScrollViewer Margin="4,6,4,6" Style="{DynamicResource ScrollViewerStyle}" MaxHeight="{TemplateBinding MaxDropDownHeight}" SnapsToDevicePixels="True" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" CanContentScroll="True">
+                                        <!-- StackPanel 用于显示子级，方法是将 IsItemsHost 设置为 True -->
+                                        <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Contained" Background="White"/>
+                                    </ScrollViewer>
+                                </Border>
+                            </Popup>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="headerListView" TargetType="{x:Type GridViewColumnHeader}">
+
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+
+            <Setter Property="Background" Value="#333"/>
+
+            <Setter Property="Foreground" Value="#fff"/>
+
+            <Setter Property="BorderBrush" Value="#ffaa00"/>
+
+            <Setter Property="BorderThickness" Value="0,0,0,1"/>
+
+            <Setter Property="Height" Value="20"/>
+
+            <Setter Property="FontSize" Value="13"/>
+
+            <Setter Property="Template">
+
+                <Setter.Value>
+
+                    <!--<SnippetGVCHControlTemplateStart>-->
+
+                    <ControlTemplate TargetType="{x:Type GridViewColumnHeader}">
+
+                        <!--</SnippetGVCHControlTemplateStart>-->
+
+                        <Grid>
+
+                            <DockPanel Background="{TemplateBinding Background}">
+
+                                <!-- Hightlight at bottom -->
+
+                                <Border x:Name="HighlightBorder"
+ 
+                                                DockPanel.Dock="Bottom"
+ 
+                                                Background="Transparent"
+ 
+                                                BorderBrush="{TemplateBinding BorderBrush}"
+ 
+                                                Height="3" BorderThickness="{TemplateBinding BorderThickness}"/>
+
+                                <!-- GridViewColumnHeader Content -->
+
+                                <Border BorderThickness="{TemplateBinding BorderThickness}"
+ 
+                                                BorderBrush="{TemplateBinding BorderBrush}"
+ 
+                                                Padding="{TemplateBinding Padding}"
+ 
+                                                Height="{TemplateBinding Height}">
+
+                                    <ContentPresenter VerticalAlignment="{TemplateBinding VerticalContentAlignment}"                              
+ 
+                                                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+ 
+                                                              RecognizesAccessKey="True"/>
+
+                                </Border>
+
+                            </DockPanel>
+
+                        </Grid>
+
+
+
+                        <ControlTemplate.Triggers>
+
+
+
+                            <Trigger Property="IsPressed" Value="true">
+
+                                <Setter TargetName="HighlightBorder" Property="Visibility" Value="Hidden"/>
+
+                                <Setter Property="Background" Value="#ffaa00"/>
+
+                                <Setter Property="Foreground" Value="#333"/>
+
+                            </Trigger>
+
+                            <!--</SnippetIsPressed>-->
+
+                            <Trigger Property="Height" Value="Auto">
+
+                                <Setter Property="MinHeight" Value="20"/>
+
+                            </Trigger>
+
+                            <Trigger Property="IsEnabled" Value="false">
+
+                                <Setter Property="Foreground" Value="mistyrose"/>
+
+                            </Trigger>
+
+                            <!--<SnippetFloating>-->
+
+                            <Trigger Property="Role" Value="Floating">
+
+                                <Setter Property="Background" Value="#FFAA00"/>
+
+                            </Trigger>
+
+                            <!--</SnippetFloating>-->
+
+                            <!--<SnippetControlTemplateTriggersEnd>-->
+
+                        </ControlTemplate.Triggers>
+
+                        <!--</SnippetControlTemplateTriggersEnd>-->
+
+                        <!--<SnippetGVCHControlTemplateEnd>-->
+
+                    </ControlTemplate>
+
+                    <!--</SnippetGVCHControlTemplateEnd>-->
+
+                </Setter.Value>
+
+            </Setter>
+
+        </Style>
+
+    </Window.Resources>
+
     <Grid>
+        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="25*"/>
+            <RowDefinition Height="59*"/>
+        </Grid.RowDefinitions>
+
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="103*"/>
             <ColumnDefinition Width="690*"/>
+
         </Grid.ColumnDefinitions>
-        <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="21" Margin="107.8,11,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="327" Grid.Column="1"/>
-        <Button x:Name="FindButton" Content="Find" HorizontalAlignment="Left" Height="21" Margin="476.8,10,0,0" VerticalAlignment="Top" Width="161" Click="FindButton_Click" Grid.Column="1">
-            <Button.Effect>
-                <DropShadowEffect ShadowDepth="3"/>
-            </Button.Effect>
+        
+        <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="21" Margin="101.8,17,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="327" Grid.Column="1"/>
+
+
+
+        <Image x:Name="learningrecordbg" Height="420"  Width="auto" Grid.ColumnSpan="2" Margin="0,0,-5.4,0" Stretch="UniformToFill" HorizontalAlignment="Left" Grid.RowSpan="2" VerticalAlignment="Bottom"/>
+        <Button x:Name="FindButton" Content="查找"  HorizontalAlignment="Left" Height="21" Margin="465,16,0,0" VerticalAlignment="Top" Width="161" Click="FindButton_Click" Grid.Column="1" >
+            <Button.Template>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border BorderBrush="{TemplateBinding Control.BorderBrush}" BorderThickness="0" CornerRadius="8,8,8,8" Name="PART_Background">
+                        <Border.Background>
+                            <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                                <GradientStop Color="White" Offset="0.0" />
+                                <GradientStop Color="Silver" Offset="0.5" />
+                                <GradientStop Color="White" Offset="0.0" />
+                            </LinearGradientBrush>
+                        </Border.Background>
+                        <ContentPresenter Content="{TemplateBinding ContentControl.Content}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="UIElement.IsMouseOver" Value="True">
+                            <Setter Property="Border.Background" TargetName="PART_Background">
+                                <Setter.Value>
+                                    <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                                        <GradientStop Color="Silver" Offset="0.0" />
+                                        <GradientStop Color="White" Offset="0.5" />
+                                        <GradientStop Color="Silver" Offset="0.0" />
+                                    </LinearGradientBrush>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                        <Trigger Property="ButtonBase.IsPressed" Value="True">
+                            <Setter Property="UIElement.Effect">
+                                <Setter.Value>
+                                    <DropShadowEffect BlurRadius="10" Color="Black" Direction="0" Opacity="0.6" RenderingBias="Performance" ShadowDepth="0" />
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Button.Template>
         </Button>
-        <ComboBox x:Name="selectComboBox" HorizontalAlignment="Left" Margin="48,10,0,0" VerticalAlignment="Top" Width="120" Height="21" IsTextSearchEnabled="False" IsSynchronizedWithCurrentItem="False" Grid.ColumnSpan="2"/>
-        <ListView Name="RecordList" Grid.Row="0" HorizontalAlignment="Left" Height="332" Margin="48,60,0,0" VerticalAlignment="Top" Width="693" Grid.ColumnSpan="2">
+        
+
+
+
+        <ComboBox x:Name="selectComboBox" HorizontalAlignment="Left" Margin="56,17,0,0" VerticalAlignment="Top" Width="120" Height="21" IsTextSearchEnabled="False" IsSynchronizedWithCurrentItem="False" Grid.ColumnSpan="2" HorizontalContentAlignment="Center" Style="{StaticResource ComboBoxStyle}"/>
+
+
+        <ListView Name="RecordList" Grid.Row="0" HorizontalAlignment="Left" Height="332" Margin="56,60,0,0" VerticalAlignment="Top" Width="675" Grid.ColumnSpan="2" Grid.RowSpan="2" Style="{StaticResource listview}">
+
             <ListView.View>
-                <GridView>
+                <GridView ColumnHeaderContainerStyle="{StaticResource headerListView}">
+
                     <GridViewColumn Header="学习记录" Width="100" DisplayMemberBinding="{Binding Path=RecordNo}"></GridViewColumn>
-                    <GridViewColumn Header="学习日期" Width="200" DisplayMemberBinding="{Binding Path=LearnDate}"></GridViewColumn>
-                    <GridViewColumn Header="学习时长" Width="100" DisplayMemberBinding="{Binding Path=LearnTime}"></GridViewColumn>
-                    <GridViewColumn Header="学习状态" Width="100" DisplayMemberBinding="{Binding Path=LearnState}"></GridViewColumn>
+                    <GridViewColumn Header="学习日期" Width="220" DisplayMemberBinding="{Binding Path=LearnDate}"></GridViewColumn>
+                    <GridViewColumn Header="学习时长" Width="120" DisplayMemberBinding="{Binding Path=LearnTime}"></GridViewColumn>
+                    <GridViewColumn Header="学习状态" Width="120" DisplayMemberBinding="{Binding Path=LearnStateResult}"></GridViewColumn>
+                    <GridViewColumn Header="获得金币" Width="100" DisplayMemberBinding="{Binding Path=Coin}"></GridViewColumn>
+                    
                 </GridView>
             </ListView.View>
+            <ListView.ItemContainerStyle>
+                <Style TargetType="{x:Type ListViewItem}">
+                    <Style.Setters>
+                        <Setter Property="HorizontalContentAlignment" Value="Center"></Setter>
+                        <EventSetter Event="MouseDoubleClick" Handler="OnListViewItemDoubleClick"></EventSetter>
+                    </Style.Setters>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Path=LearnStateResult}" Value="未完成">
+                            <Setter Property="Foreground" Value="red"></Setter>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </ListView.ItemContainerStyle>
         </ListView>
-        <Button Content="OK" HorizontalAlignment="Right" Height="20" VerticalAlignment="Top" Width="43" RenderTransformOrigin="0.014,-0.13" Click="Button_Click" Margin="0,0,60.2,0"/>
+
+        <Label x:Name="HelpLabel" Content="点我点我！" HorizontalAlignment="Left" Margin="86,35,0,0" VerticalAlignment="Top" Width="71" Height="38" Grid.ColumnSpan="2" FontSize="13" FontWeight="DemiBold" RenderTransformOrigin="0.77,0.5" Foreground="Aqua" MouseLeftButtonDown="ShowHelp"/>
+
+
 
     </Grid>
 </Window>

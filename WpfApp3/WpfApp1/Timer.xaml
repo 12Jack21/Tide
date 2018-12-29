@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:WpfApp1"
         mc:Ignorable="d"
         
+        Topmost="True"
         Background="Transparent"
         AllowsTransparency="True"
         WindowStyle="None"
@@ -13,11 +14,15 @@
         Title="Timer" Height="120" Width="120">
 
     <Grid Name ="gridTitle" Margin="0,0,0,0">
-        <Image  Source ="Resources/timer.png" Stretch="Fill" RenderTransformOrigin="0.329,0.5" Margin="0,0,0,1.4"  >
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="47*"/>
+            <ColumnDefinition Width="13*"/>
+        </Grid.ColumnDefinitions>
+        <Image x:Name="timer1"  Source ="Resources/timer.png" Stretch="Fill" RenderTransformOrigin="0.329,0.5" Margin="0,0,0,1" Grid.ColumnSpan="2"  >
 
         </Image>
-        
-        <Label x:Name="timer2" Content="" HorizontalAlignment="Left" Margin="20,49,0,0" VerticalAlignment="Top" Width="83" Height="30" FontSize="18" />
+
+        <Label x:Name="timer2" Content="" HorizontalAlignment="Left" Margin="20,49,0,0" VerticalAlignment="Top" Width="83" Height="30" FontSize="18" Grid.ColumnSpan="2" />
         <Grid.ContextMenu>
             <ContextMenu  DataContext="{Binding Path=PlacementTarget.Tag, RelativeSource={RelativeSource Self}}" Name ="Menu">
                 <MenuItem Header="暂停" Command="{Binding CutCommand}" Click="Pause" />
@@ -27,5 +32,5 @@
         </Grid.ContextMenu>
 
     </Grid>
- 
+
 </Window>
