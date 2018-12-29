@@ -22,6 +22,7 @@ namespace WpfApp1
         List<String> gameList;
         string lastGameName;
         int gameTime;
+        int controlTime;
 
 
         [DllImport("user32.dll")]
@@ -36,6 +37,11 @@ namespace WpfApp1
             Procs = new List<Proc>();
         }
 
+        //设置约束时间
+        public void setControlTime(int time)
+        {
+            controlTime = time;
+        }
         public void init()
         {
             gameList = new List<string>();
@@ -87,7 +93,7 @@ namespace WpfApp1
         //检查游戏时长是否超时 false为超时
         public bool checkGameTime()
         {
-            if (gameTime > 2)
+            if (gameTime >= controlTime)
                 return false;
             return true;
         }
@@ -107,17 +113,19 @@ namespace WpfApp1
             var process = Process.GetProcessById((int)procId);
             try
             {
+                if (process.ProcessName == "WpfApp1")
+                    return;
                 var query = Procs.Where(p => p.Name == process.ProcessName).SingleOrDefault();
                 if (query != null)
                 {
                     query.Time++;
                     //判断游戏
-                    gameMonitor(query.Name);
+                    gameMonitor(query.Name.ToLower());
                 }
                 else
                 {
                     Proc proc = new Proc();
-                    proc.Name = process.ProcessName;
+                    proc.Name = process.ProcessName.ToLower();
                     proc.Time = 1;
                     Procs.Add(proc);
                 }

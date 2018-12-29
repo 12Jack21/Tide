@@ -40,12 +40,14 @@ namespace WpfApp1
         
         public void init()
         {
+            MinWidth = MaxWidth = Width;
+            MinHeight = MaxHeight = Height;
             //combobox的选项
-            categoryList.Add(new CategoryInfo { Name = "按照学习日期查询", Value = 2 });
-            categoryList.Add(new CategoryInfo { Name = "按照学习记录序号查询", Value = 1 });
-            categoryList.Add(new CategoryInfo { Name = "显示所有学习记录", Value = 0 });
-            categoryList.Add(new CategoryInfo { Name = "显示学习成功的记录", Value = 3 });
-            categoryList.Add(new CategoryInfo { Name = "按照低于某一的金币数查询", Value = 4 });
+            categoryList.Add(new CategoryInfo { Name = "按照日期查询", Value = 2 });
+            categoryList.Add(new CategoryInfo { Name = "按照记录序号查询", Value = 1 });
+            categoryList.Add(new CategoryInfo { Name = "显示所有记录", Value = 0 });
+            categoryList.Add(new CategoryInfo { Name = "显示成功的记录", Value = 3 });
+            categoryList.Add(new CategoryInfo { Name = "按照低于某金币数查询", Value = 4 });
             selectComboBox.ItemsSource = categoryList;
             selectComboBox.DisplayMemberPath = "Name";
             selectComboBox.SelectedValuePath = "Value";

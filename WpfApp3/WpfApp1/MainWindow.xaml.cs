@@ -34,9 +34,16 @@ namespace WpfApp1
         public bool lock1;
         public bool lock2;
 
+        //约束时间
+        public int controlTime;
+        //监控表
+        public List<string> gameList;
+
+
         public MainWindow()
         {
             MoneyGet();
+            gameList = new List<string>();
             InitializeComponent();
            //mc.FileName = @"E:\视频\影音\往后余生 - 1王贰浪.mp3"; //默认音乐路径
             NowNo = 1;
@@ -59,6 +66,7 @@ namespace WpfApp1
             lock2 = Boolean.Parse(line);
             sr.Close();
         }
+     
         private void Button_Click(object sender, RoutedEventArgs e)
         {
 
@@ -80,15 +88,23 @@ namespace WpfApp1
         {
             if (comboBox.Text == null)
                 MessageBox.Show("未选择时间！");
+            //string chooseTimeString = comboBox.Text;
+            //string[] chooseTime = chooseTimeString.Split(' ');
+            //countSecond = int.Parse(chooseTime[0]) * 60;//获取选择时间 
             string chooseTimeString = comboBox.Text;
             string[] chooseTime = chooseTimeString.Split(' ');
-            countSecond = int.Parse(chooseTime[0]) * 60;//获取选择时间 
-     
-          
+            countSecond = int.Parse(chooseTime[0]) * 60; //获取选择时间
+            string choice = chooseTime[0];
+
+
+
             //主界面的隐藏
             //显示时钟界面
             MainForm.Visibility = Visibility.Hidden;
-            t = new Timer(disTimer, mc, countSecond, this,NowNo, first,TimerPhoto);
+            t = new Timer(disTimer, mc, countSecond, this,NowNo, first,TimerPhoto, choice);
+            t.setControlTime(controlTime);
+            t.setGameList(gameList);
+
             t.setCoin(coin);
             t.ShowDialog();
             t.CountSecond = countSecond;
@@ -118,6 +134,7 @@ namespace WpfApp1
                 mc.FileName = m.Waves();
                 //---------------=-----------------------------------------------------------修改
                 bg.Source = new BitmapImage(new Uri(m.WavesPicture()));
+                TimerPhoto = new BitmapImage(new Uri(m.WavesTimer()));
             }
             else
             {
@@ -137,6 +154,7 @@ namespace WpfApp1
                     sw2.WriteLine(lock1);
                     sw2.WriteLine(lock2);
                     sw2.Close();
+                    MoneyL.Content = "当前金币数：" + coin;
                 }
                 else
                 {
@@ -153,15 +171,23 @@ namespace WpfApp1
             TimerPhoto = null;
         }
 
+        //监控软件选项
         private void Button_Click_7(object sender, RoutedEventArgs e)
         {
-            SetPro setPro = new SetPro();
-            setPro.ShowDialog();
-            if (setPro.DialogResult == true)
-            {
-                string m = setPro.m;
-                setPro.Close();
-            }
+            Select select = new Select();
+            select.Owner = this;
+            select.ShowDialog();
+
+        }
+
+        private void Init(object sender, EventArgs e)
+        {
+
+        }
+
+        private void InitMonL(object sender, EventArgs e)
+        {
+            MoneyL.Content = "当前金币数：" + coin;
         }
     }
 }

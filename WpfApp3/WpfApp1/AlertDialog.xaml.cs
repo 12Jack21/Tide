@@ -34,6 +34,7 @@ namespace WpfApp1
         {
             gameName = name;
             retime = time;
+            TipLabel.Content = "你已经使用 " + gameName + " 超过 " + retime + " 秒了";
         }
 
         public void init()
@@ -67,7 +68,6 @@ namespace WpfApp1
         //初始化提示的 Label
         private void TipLabel_Initialized(object sender, EventArgs e)
         {
-            TipLabel.Content = "你已经使用 " + gameName + "超过" + retime +"秒了";
             
         }
     }

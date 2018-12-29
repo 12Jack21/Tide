@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:WpfApp1"
         mc:Ignorable="d"
         Title="AlertDialog" Height="450" Width="800">
-    <Grid Margin="0,0,3.6,0">
+    <Grid Margin="0,0,3.6,0" Background="Azure">
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
             <ColumnDefinition Width="0*"/>
@@ -84,7 +84,7 @@
             </Button.Template>
         </Button>
         <Label x:Name="qustion" Content="你确定不学了吗" Margin="231,151,215.4,179" FontSize="48" RenderTransformOrigin="0.499,0.513"/>
-        <Label x:Name="TipLabel" Content="使用软件" HorizontalAlignment="Left" Margin="304,84,0,0" VerticalAlignment="Top" Height="32" Width="197" FontSize="20" Initialized="TipLabel_Initialized"/>
+        <Label x:Name="TipLabel" Content="" HorizontalAlignment="Center" VerticalAlignment="Top" Height="39" FontSize="20" Initialized="TipLabel_Initialized" Margin="254,77,215.4,0" Width="321"/>
 
     </Grid>
 </Window>

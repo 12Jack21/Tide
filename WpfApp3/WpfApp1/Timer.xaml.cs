@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -28,14 +29,15 @@ namespace WpfApp1
         ProcManager pm;
         AlertDialog alert;
         int coin = 0;//金币
+        int timeSpan;//学习时长
 
-        public Timer(DispatcherTimer t, MusicManager m, int time, MainWindow w, int num, bool f,BitmapImage photo)
+
+        public Timer(DispatcherTimer t, MusicManager m, int time, MainWindow w, int num, bool f,BitmapImage photo,string choice)
         {
             pm = new ProcManager();
             pm.init();
-            pm.addGameName("TIM");
-            pm.addGameName("chrome");
-
+            
+            timeSpan = int.Parse(choice);
             disTimer = t;      //初始化
             mc = m;
             learningTime = CountSecond = time;   //时间
@@ -50,6 +52,20 @@ namespace WpfApp1
 
         public int NowNo { get; private set; }
         public bool first { get; private set; }
+
+        //设置监控约束时间
+        public void setControlTime(int time)
+        {
+            pm.setControlTime(time);
+        }
+        //设置监控表
+        public void setGameList(List<string> list)
+        {
+            foreach(var s in list)
+            {
+                pm.addGameName(s);
+            }
+        }
 
         public void setCoin(int coin)
         {
@@ -92,7 +108,7 @@ namespace WpfApp1
                 int length = learningTime - CountSecond;  //已学习时长
                                                           //转换为字符串，传入参数
                 String timeRecord = String.Format("{0:D2}", length / 60 / 60) + ":" + String.Format("{0:D2}", (length / 60) % 60) + ":" + String.Format("{0:D2}", length % 60);
-                LearningRecordWindow lrw = new LearningRecordWindow(NowNo, false, timeRecord, procResult,coin);
+                LearningRecordWindow lrw = new LearningRecordWindow(NowNo, false, timeRecord, procResult,0);
                 lrw.ShowDialog();
                 NowNo++;
                 LearningRecordService.ShowAll();
@@ -135,7 +151,7 @@ namespace WpfApp1
                     //存放当前一次学习中使用的程序信息，用List存储，并将其传到学习记录窗口
                     List<Proc> procResult = pm.countResult();
                     String timeRecord = String.Format("{0:D2}", learningTime / 60 / 60) + ":" + String.Format("{0:D2}", (learningTime / 60) % 60) + ":" + String.Format("{0:D2}", learningTime % 60);
-                    LearningRecordWindow lrw = new LearningRecordWindow(NowNo, false, timeRecord, procResult, coin);
+                    LearningRecordWindow lrw = new LearningRecordWindow(NowNo, false, timeRecord, procResult, 0);
                     lrw.ShowDialog();
                     NowNo++;
                     LearningRecordService.ShowAll();
@@ -153,25 +169,31 @@ namespace WpfApp1
             }
 
             int temp = CountSecond;
-            if (CountSecond == 57)  //为了显示效果，故此处设置为-1
-            {             
-                MessageBox.Show("你已成功完成本次学习，金币加5！");
+            if (CountSecond == 40)  //为了显示效果，故此处设置为-1
+            {
+                MessageBox.Show("你已成功完成本次学习，金币加 "+timeSpan+" !");
                 disTimer.Stop(); //关闭计时器
                 mc.StopT(); //关闭音乐               
                 this.Close();  //关闭当前窗口
                 //存放当前一次学习中使用的程序信息，用List存储，并将其传到学习记录窗口
                 List<Proc> procResult = pm.countResult();
                 String timeRecord = String.Format("{0:D2}", learningTime / 60 / 60) + ":" + String.Format("{0:D2}", (learningTime / 60) % 60) + ":" + String.Format("{0:D2}", learningTime % 60);
-                LearningRecordWindow lrw = new LearningRecordWindow(NowNo, true, timeRecord, procResult,coin);
+
+                main.coin += timeSpan;
+                LearningRecordWindow lrw = new LearningRecordWindow(NowNo, true, timeRecord, procResult,timeSpan);
                 lrw.ShowDialog();
                 NowNo++;
                 LearningRecordService.ShowAll();
 
                 disTimer.Tick -= new EventHandler(disTimer_Tick);
-                main.coin += 5;
                 main.Visibility = Visibility.Visible;  //显示主窗口
+                StreamWriter sw2 = new StreamWriter(@"1.txt", false, Encoding.UTF8);
+                sw2.WriteLine(main.coin);
+                sw2.WriteLine(main.lock1);
+                sw2.WriteLine(main.lock2);
+                sw2.Close();
+                main.MoneyL.Content = "当前金币数："+main.coin;
 
-                
             }
             else
             {
