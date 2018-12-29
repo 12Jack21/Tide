@@ -47,7 +47,7 @@ namespace WpfApp1
                 pm = value;
                 if (PropertyChanged != null)
                 {
-                    PropertyChanged.Invoke(this, new PropertyChangedEventArgs("Age"));
+                    PropertyChanged.Invoke(this, new PropertyChangedEventArgs("Proc"));
                 }
             }
         }
@@ -62,7 +62,7 @@ namespace WpfApp1
                 recordNo = value;
                 if (PropertyChanged != null)
                 {
-                    PropertyChanged.Invoke(this, new PropertyChangedEventArgs("Age"));
+                    PropertyChanged.Invoke(this, new PropertyChangedEventArgs("RecordNo"));
                 }
             }
         }
@@ -74,7 +74,7 @@ namespace WpfApp1
                 learnDate = value;
                 if (PropertyChanged != null)
                 {
-                    PropertyChanged.Invoke(this, new PropertyChangedEventArgs("Age"));
+                    PropertyChanged.Invoke(this, new PropertyChangedEventArgs("LearnDate"));
                 }
             }
         }
@@ -86,7 +86,7 @@ namespace WpfApp1
                 learnStateResult = value;
                 if (PropertyChanged != null)
                 {
-                    PropertyChanged.Invoke(this, new PropertyChangedEventArgs("Age"));
+                    PropertyChanged.Invoke(this, new PropertyChangedEventArgs("LearnStateResult"));
                 }
             }
         }
@@ -95,6 +95,14 @@ namespace WpfApp1
             get
             {
                 return learnState;
+            }
+            set
+            {
+                learnState = value;
+                if (PropertyChanged != null)
+                {
+                    PropertyChanged.Invoke(this, new PropertyChangedEventArgs("LearnState"));
+                }
             }
         }
         [XmlIgnore]
@@ -106,7 +114,7 @@ namespace WpfApp1
                 learnTime = value;
                 if (PropertyChanged != null)
                 {
-                    PropertyChanged.Invoke(this, new PropertyChangedEventArgs("Age"));
+                    PropertyChanged.Invoke(this, new PropertyChangedEventArgs("LearnTime"));
                 }
             }
         }

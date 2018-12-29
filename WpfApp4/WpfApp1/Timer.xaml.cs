@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -124,7 +125,6 @@ namespace WpfApp1
                     LearningRecordService.ShowAll();
 
                     disTimer.Tick -= new EventHandler(disTimer_Tick);
-
                     main.Visibility = Visibility.Visible;  //显示主窗口
                 }
                 else
@@ -139,10 +139,9 @@ namespace WpfApp1
             int temp = CountSecond;
             if (CountSecond == 57)  //为了显示效果，故此处设置为-1
             {             
-                MessageBox.Show("你已成功完成本次学习。");
+                MessageBox.Show("你已成功完成本次学习，金币加5！");
                 disTimer.Stop(); //关闭计时器
                 mc.StopT(); //关闭音乐               
-
                 this.Close();  //关闭当前窗口
                 //存放当前一次学习中使用的程序信息，用List存储，并将其传到学习记录窗口
                 List<Proc> procResult = pm.countResult();
@@ -153,7 +152,12 @@ namespace WpfApp1
                 LearningRecordService.ShowAll();
 
                 disTimer.Tick -= new EventHandler(disTimer_Tick);
-
+                main.money += 5;
+                StreamWriter sw2 = new StreamWriter(@"1.txt", false, Encoding.UTF8);
+                sw2.WriteLine(main.money);
+                sw2.WriteLine(main.lock1);
+                sw2.WriteLine(main.lock2);
+                sw2.Close();
                 main.Visibility = Visibility.Visible;  //显示主窗口
 
                 

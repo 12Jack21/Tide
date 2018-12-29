@@ -36,7 +36,7 @@ namespace WpfApp1
             public string Name { get; set; }
             public int Value { get; set; }
         }
-
+        
         public void init()
         {
             //combobox的选项
@@ -47,6 +47,7 @@ namespace WpfApp1
             selectComboBox.ItemsSource = categoryList;
             selectComboBox.DisplayMemberPath = "Name";
             selectComboBox.SelectedValuePath = "Value";
+            this.selectComboBox.SelectedIndex = 2;
             //数据初始化            
             string path = @"..\..\bin\Debug\";//指定目录
             NewFileInfo nf = NewFileInfo.GetLastFile(path, ".xml");
@@ -66,12 +67,18 @@ namespace WpfApp1
                 recordList = LearningRecordService.Import(newPath);
                 
             }
+            //添加图片
+            ImageBrush b = new ImageBrush();
+            b.ImageSource = new BitmapImage(new Uri(System.IO.Directory.GetCurrentDirectory() + @"\Picture\learningrecordbg.png"));
+            b.Stretch = Stretch.Fill;
+            this.Background = b;
         }
 
         public LearningRecordWindow()
         {
             InitializeComponent();
             init();
+            
             RecordList.ItemsSource = recordList;
 
             //传递给learningRecordService的数据（dictionary转化为list）           
@@ -153,8 +160,8 @@ namespace WpfApp1
                     if (LearningRecordService.FindByRecordNo(id) == null)
                     {
                         MessageBox.Show("无匹配的学习记录，请重新搜索。");
+                        RecordList.ItemsSource = recordList;
                     }
-                    RecordList.ItemsSource = recordList;
                     break;
                 case 2:
                     string datetime = textBox.Text;
@@ -162,8 +169,8 @@ namespace WpfApp1
                     if(LearningRecordService.FindByLearnDate(datetime) == null)
                     {
                         MessageBox.Show("无匹配的学习记录，请重新搜索。");
+                        RecordList.ItemsSource = recordList;
                     }
-                    RecordList.ItemsSource = recordList;
                     break;
                 case 3:
                     RecordList.ItemsSource = LearningRecordService.FindByLearnState(true);
@@ -196,10 +203,10 @@ namespace WpfApp1
             }
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            Close();
-        }
+        //private void Button_Click(object sender, RoutedEventArgs e)
+        //{
+        //    Close();
+        //}
         //双击数据行时生成相应的学习分析报告
         private void OnListViewItemDoubleClick(object sender, MouseButtonEventArgs e)
         {
@@ -212,14 +219,16 @@ namespace WpfApp1
                 procName.Add(m.Name);
                 procTime.Add(m.Time);
             }
-            daw = new DataAnalysisWindow(selectedNo, procName, procTime, recordList);
+            daw = new DataAnalysisWindow( procName, procTime);
             daw.ShowDialog();
         }
 
         private void ShowHelp(object sender, MouseButtonEventArgs e)
         {
-            MessageBox.Show("1.日期查询支持查询某一年的记录，如2018，也支持类似2018-08-14或者2018-08来查询对应的天和月份记录;" +
-                "2.查询输入的数据须符合要求");
+            MessageBox.Show("1.日期查询支持查询某一年的记录，如2018，也支持类似2018-08-14或者2018-08来查询对应的天和月份记录;" 
+                +'\n'+ "2.查询输入的数据须符合要求;"+'\n'+"3.双击学习记录行可查看详情;"
+                );
         }
+        
     }
 }

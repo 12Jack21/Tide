@@ -11,6 +11,7 @@
     <RecordNo>1</RecordNo>
     <LearnDate>2018-12-26T16:09:40.3662811+08:00</LearnDate>
     <LearnStateResult>已完成</LearnStateResult>
+    <LearnState>false</LearnState>
     <learnTime>600000000</learnTime>
   </LearningRecordManager>
   <LearningRecordManager>
@@ -24,6 +25,7 @@
     <RecordNo>2</RecordNo>
     <LearnDate>2018-12-26T16:11:52.7761873+08:00</LearnDate>
     <LearnStateResult>已完成</LearnStateResult>
+    <LearnState>false</LearnState>
     <learnTime>600000000</learnTime>
   </LearningRecordManager>
   <LearningRecordManager>
@@ -37,6 +39,7 @@
     <RecordNo>3</RecordNo>
     <LearnDate>2018-12-26T16:47:02.8086657+08:00</LearnDate>
     <LearnStateResult>已完成</LearnStateResult>
+    <LearnState>false</LearnState>
     <learnTime>600000000</learnTime>
   </LearningRecordManager>
   <LearningRecordManager>
@@ -50,6 +53,7 @@
     <RecordNo>4</RecordNo>
     <LearnDate>2018-12-26T16:48:39.7548203+08:00</LearnDate>
     <LearnStateResult>已完成</LearnStateResult>
+    <LearnState>false</LearnState>
     <learnTime>600000000</learnTime>
   </LearningRecordManager>
   <LearningRecordManager>
@@ -71,6 +75,7 @@
     <RecordNo>5</RecordNo>
     <LearnDate>2018-12-26T17:48:32.9547167+08:00</LearnDate>
     <LearnStateResult>已完成</LearnStateResult>
+    <LearnState>false</LearnState>
     <learnTime>600000000</learnTime>
   </LearningRecordManager>
   <LearningRecordManager>
@@ -92,6 +97,271 @@
     <RecordNo>6</RecordNo>
     <LearnDate>2018-12-26T19:50:22.3318126+08:00</LearnDate>
     <LearnStateResult>未完成</LearnStateResult>
+    <LearnState>false</LearnState>
     <learnTime>15000000000</learnTime>
+  </LearningRecordManager>
+  <LearningRecordManager>
+    <recordNo>7</recordNo>
+    <pm>
+      <Proc>
+        <Name>WpfApp1</Name>
+        <Time>5</Time>
+      </Proc>
+    </pm>
+    <RecordNo>7</RecordNo>
+    <LearnDate>2018-12-28T21:17:23.1637766+08:00</LearnDate>
+    <LearnStateResult>未完成</LearnStateResult>
+    <LearnState>false</LearnState>
+    <learnTime>50000000</learnTime>
+  </LearningRecordManager>
+  <LearningRecordManager>
+    <recordNo>8</recordNo>
+    <pm>
+      <Proc>
+        <Name>WpfApp1</Name>
+        <Time>4</Time>
+      </Proc>
+    </pm>
+    <RecordNo>8</RecordNo>
+    <LearnDate>2018-12-28T21:18:31.1749077+08:00</LearnDate>
+    <LearnStateResult>未完成</LearnStateResult>
+    <LearnState>false</LearnState>
+    <learnTime>40000000</learnTime>
+  </LearningRecordManager>
+  <LearningRecordManager>
+    <recordNo>9</recordNo>
+    <pm>
+      <Proc>
+        <Name>WpfApp1</Name>
+        <Time>10</Time>
+      </Proc>
+    </pm>
+    <RecordNo>9</RecordNo>
+    <LearnDate>2018-12-28T21:28:54.1699353+08:00</LearnDate>
+    <LearnStateResult>未完成</LearnStateResult>
+    <LearnState>false</LearnState>
+    <learnTime>100000000</learnTime>
+  </LearningRecordManager>
+  <LearningRecordManager>
+    <recordNo>10</recordNo>
+    <pm>
+      <Proc>
+        <Name>WpfApp1</Name>
+        <Time>7</Time>
+      </Proc>
+    </pm>
+    <RecordNo>10</RecordNo>
+    <LearnDate>2018-12-28T21:30:59.0679659+08:00</LearnDate>
+    <LearnStateResult>未完成</LearnStateResult>
+    <LearnState>false</LearnState>
+    <learnTime>70000000</learnTime>
+  </LearningRecordManager>
+  <LearningRecordManager>
+    <recordNo>11</recordNo>
+    <pm>
+      <Proc>
+        <Name>WpfApp1</Name>
+        <Time>6</Time>
+      </Proc>
+    </pm>
+    <RecordNo>11</RecordNo>
+    <LearnDate>2018-12-28T21:31:13.1081477+08:00</LearnDate>
+    <LearnStateResult>未完成</LearnStateResult>
+    <LearnState>false</LearnState>
+    <learnTime>60000000</learnTime>
+  </LearningRecordManager>
+  <LearningRecordManager>
+    <recordNo>12</recordNo>
+    <pm>
+      <Proc>
+        <Name>WpfApp1</Name>
+        <Time>3</Time>
+      </Proc>
+    </pm>
+    <RecordNo>12</RecordNo>
+    <LearnDate>2018-12-28T21:31:27.4767248+08:00</LearnDate>
+    <LearnStateResult>未完成</LearnStateResult>
+    <LearnState>false</LearnState>
+    <learnTime>30000000</learnTime>
+  </LearningRecordManager>
+  <LearningRecordManager>
+    <recordNo>13</recordNo>
+    <pm>
+      <Proc>
+        <Name>WpfApp1</Name>
+        <Time>5</Time>
+      </Proc>
+    </pm>
+    <RecordNo>13</RecordNo>
+    <LearnDate>2018-12-28T21:31:39.7568408+08:00</LearnDate>
+    <LearnStateResult>未完成</LearnStateResult>
+    <LearnState>false</LearnState>
+    <learnTime>50000000</learnTime>
+  </LearningRecordManager>
+  <LearningRecordManager>
+    <recordNo>14</recordNo>
+    <pm>
+      <Proc>
+        <Name>WpfApp1</Name>
+        <Time>5</Time>
+      </Proc>
+    </pm>
+    <RecordNo>14</RecordNo>
+    <LearnDate>2018-12-28T21:38:10.5874604+08:00</LearnDate>
+    <LearnStateResult>未完成</LearnStateResult>
+    <LearnState>false</LearnState>
+    <learnTime>50000000</learnTime>
+  </LearningRecordManager>
+  <LearningRecordManager>
+    <recordNo>15</recordNo>
+    <pm>
+      <Proc>
+        <Name>WpfApp1</Name>
+        <Time>6</Time>
+      </Proc>
+      <Proc>
+        <Name>TIM</Name>
+        <Time>5</Time>
+      </Proc>
+      <Proc>
+        <Name>explorer</Name>
+        <Time>1</Time>
+      </Proc>
+    </pm>
+    <RecordNo>15</RecordNo>
+    <LearnDate>2018-12-28T21:38:41.6815965+08:00</LearnDate>
+    <LearnStateResult>未完成</LearnStateResult>
+    <LearnState>false</LearnState>
+    <learnTime>110000000</learnTime>
+  </LearningRecordManager>
+  <LearningRecordManager>
+    <recordNo>16</recordNo>
+    <pm>
+      <Proc>
+        <Name>WpfApp1</Name>
+        <Time>7</Time>
+      </Proc>
+    </pm>
+    <RecordNo>16</RecordNo>
+    <LearnDate>2018-12-28T21:38:59.100459+08:00</LearnDate>
+    <LearnStateResult>未完成</LearnStateResult>
+    <LearnState>false</LearnState>
+    <learnTime>70000000</learnTime>
+  </LearningRecordManager>
+  <LearningRecordManager>
+    <recordNo>17</recordNo>
+    <pm>
+      <Proc>
+        <Name>WpfApp1</Name>
+        <Time>3</Time>
+      </Proc>
+    </pm>
+    <RecordNo>17</RecordNo>
+    <LearnDate>2018-12-28T21:48:28.5530764+08:00</LearnDate>
+    <LearnStateResult>未完成</LearnStateResult>
+    <LearnState>false</LearnState>
+    <learnTime>30000000</learnTime>
+  </LearningRecordManager>
+  <LearningRecordManager>
+    <recordNo>18</recordNo>
+    <pm>
+      <Proc>
+        <Name>Idle</Name>
+        <Time>1</Time>
+      </Proc>
+      <Proc>
+        <Name>TIM</Name>
+        <Time>4</Time>
+      </Proc>
+    </pm>
+    <RecordNo>18</RecordNo>
+    <LearnDate>2018-12-28T21:49:06.0342729+08:00</LearnDate>
+    <LearnStateResult>未完成</LearnStateResult>
+    <LearnState>false</LearnState>
+    <learnTime>15000000000</learnTime>
+  </LearningRecordManager>
+  <LearningRecordManager>
+    <recordNo>19</recordNo>
+    <pm>
+      <Proc>
+        <Name>WpfApp1</Name>
+        <Time>3</Time>
+      </Proc>
+    </pm>
+    <RecordNo>19</RecordNo>
+    <LearnDate>2018-12-28T22:51:19.4106859+08:00</LearnDate>
+    <LearnStateResult>未完成</LearnStateResult>
+    <LearnState>false</LearnState>
+    <learnTime>30000000</learnTime>
+  </LearningRecordManager>
+  <LearningRecordManager>
+    <recordNo>20</recordNo>
+    <pm>
+      <Proc>
+        <Name>WpfApp1</Name>
+        <Time>4</Time>
+      </Proc>
+    </pm>
+    <RecordNo>20</RecordNo>
+    <LearnDate>2018-12-28T22:52:13.4409702+08:00</LearnDate>
+    <LearnStateResult>未完成</LearnStateResult>
+    <LearnState>false</LearnState>
+    <learnTime>40000000</learnTime>
+  </LearningRecordManager>
+  <LearningRecordManager>
+    <recordNo>21</recordNo>
+    <pm>
+      <Proc>
+        <Name>WpfApp1</Name>
+        <Time>3</Time>
+      </Proc>
+    </pm>
+    <RecordNo>21</RecordNo>
+    <LearnDate>2018-12-28T23:06:34.3231677+08:00</LearnDate>
+    <LearnStateResult>未完成</LearnStateResult>
+    <LearnState>false</LearnState>
+    <learnTime>30000000</learnTime>
+  </LearningRecordManager>
+  <LearningRecordManager>
+    <recordNo>22</recordNo>
+    <pm>
+      <Proc>
+        <Name>WpfApp1</Name>
+        <Time>4</Time>
+      </Proc>
+    </pm>
+    <RecordNo>22</RecordNo>
+    <LearnDate>2018-12-29T01:54:51.4931263+08:00</LearnDate>
+    <LearnStateResult>已完成</LearnStateResult>
+    <LearnState>true</LearnState>
+    <learnTime>600000000</learnTime>
+  </LearningRecordManager>
+  <LearningRecordManager>
+    <recordNo>23</recordNo>
+    <pm>
+      <Proc>
+        <Name>WpfApp1</Name>
+        <Time>4</Time>
+      </Proc>
+    </pm>
+    <RecordNo>23</RecordNo>
+    <LearnDate>2018-12-29T01:56:11.9826783+08:00</LearnDate>
+    <LearnStateResult>已完成</LearnStateResult>
+    <LearnState>true</LearnState>
+    <learnTime>600000000</learnTime>
+  </LearningRecordManager>
+  <LearningRecordManager>
+    <recordNo>24</recordNo>
+    <pm>
+      <Proc>
+        <Name>WpfApp1</Name>
+        <Time>4</Time>
+      </Proc>
+    </pm>
+    <RecordNo>24</RecordNo>
+    <LearnDate>2018-12-29T01:57:06.5689256+08:00</LearnDate>
+    <LearnStateResult>已完成</LearnStateResult>
+    <LearnState>true</LearnState>
+    <learnTime>600000000</learnTime>
   </LearningRecordManager>
 </ArrayOfLearningRecordManager>

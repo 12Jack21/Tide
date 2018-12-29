@@ -15,6 +15,7 @@ using System.Diagnostics;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
+using System.IO;
 
 namespace WpfApp1
 {
@@ -27,18 +28,35 @@ namespace WpfApp1
         DispatcherTimer disTimer = new DispatcherTimer();  //定时器                                                
         MusicManager mc = new MusicManager();   //播放音乐
         Timer t;
+        public int money;//金币
+        public bool lock1;
+        public bool lock2;
 
         public MainWindow()
         {
+            MoneyGet();
             InitializeComponent();
            //mc.FileName = @"E:\视频\影音\往后余生 - 1王贰浪.mp3"; //默认音乐路径
             NowNo = 1;
             first = true;
         }
-
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+        } 
         public int NowNo { get; private set; }
         public bool first { get; private set; }
-
+        private void MoneyGet()//获取金币
+        {
+            StreamReader sr = new StreamReader(@"1.txt", Encoding.Default);
+            String line;
+            line = sr.ReadLine();
+            money = int.Parse(line);
+            line = sr.ReadLine();
+            lock1 = Boolean.Parse(line);
+            line = sr.ReadLine();
+            lock2 = Boolean.Parse(line);
+            sr.Close();
+        }
         private void Button_Click(object sender, RoutedEventArgs e)
         {
 
@@ -57,8 +75,7 @@ namespace WpfApp1
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)   //开始专注点击事件
-        {        
-          
+        {
             if (comboBox.Text == null)
                 MessageBox.Show("未选择时间！");
             string chooseTimeString = comboBox.Text;
@@ -87,9 +104,53 @@ namespace WpfApp1
         }
         private void ComboBoxItem3(object sender, RoutedEventArgs e)
         {
+            if (lock2)
+            {
+                MusicChoice m = new MusicChoice();
+                mc.FileName = m.Waves();
+                bg.Source = new BitmapImage(new Uri(m.WavesPicture()));
+            }
+            else
+            {
+                Buy buy = new Buy(money);
+                buy.ShowDialog();
+                if (buy.DialogResult == true)
+                {
+                    money -= 50;
+                    buy.Close();
+                    lock2 = true;
+                    MusicChoice m = new MusicChoice();
+                    mc.FileName = m.Waves();
+                    bg.Source = new BitmapImage(new Uri(m.WavesPicture()));
+                    StreamWriter sw2 = new StreamWriter(@"1.txt", false, Encoding.UTF8);
+                    sw2.WriteLine(money);
+                    sw2.WriteLine(lock1);
+                    sw2.WriteLine(lock2);
+                    sw2.Close();
+                }
+                else
+                {
+                    buy.Close();
+                    
+                }
+            }
+        }
+        private void ComboBoxItem4(object sender, RoutedEventArgs e)
+        {
             MusicChoice m = new MusicChoice();
-            mc.FileName = m.Waves();
-            bg.Source = new BitmapImage(new Uri(m.WavesPicture()));
+            mc.FileName = System.IO.Directory.GetCurrentDirectory() + @"\Music\Forest2.mp3";
+            bg.Source = new BitmapImage(new Uri(m.DefaultPicture()));
+        }
+
+        private void Button_Click_7(object sender, RoutedEventArgs e)
+        {
+            SetPro setPro = new SetPro();
+            setPro.ShowDialog();
+            if (setPro.DialogResult == true)
+            {
+                string m = setPro.m;
+                setPro.Close();
+            }
         }
     }
 }

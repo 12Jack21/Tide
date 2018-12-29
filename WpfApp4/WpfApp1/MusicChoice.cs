@@ -8,6 +8,8 @@ namespace WpfApp1
 {
     class MusicChoice
     {
+        public static string name;
+        public string Name { get => name; set => name = value; }
         public String Forest()
         {
             Random rnd = new Random();
@@ -38,6 +40,10 @@ namespace WpfApp1
         public String WavesPicture()
         {
             return System.IO.Directory.GetCurrentDirectory() + @"\Picture\Wave.jpg";
+        }
+        public String DefaultPicture()
+        {
+            return System.IO.Directory.GetCurrentDirectory() + @"\Picture\default.jpg";
         }
     }
 }

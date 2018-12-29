@@ -5,10 +5,17 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp1"
         mc:Ignorable="d"
-        Title="DataAnalysisWindow" Height="450" Width="800">
-    
+        Title="MyBar" Height="450" Width="800">
     <Grid>
-        <Label x:Name="NoLabel" Content="{Binding Path = No}" HorizontalAlignment="Left" Margin="279,160,0,0" VerticalAlignment="Top" Width="278" Height="96" />
+        <Image HorizontalAlignment="Left" Height="505" VerticalAlignment="Top" Width="794" Margin="0,0,-0.4,-85" Source="Resources/chenbing.jpg"/>
+
+        <Button Content="柱状图" Name="ButColumn" HorizontalAlignment="Left" Margin="10,59,0,0" VerticalAlignment="Top" Width="75" Click="ButColumn_Click"/>
+        <Button Content="饼状图" x:Name="ButPie" HorizontalAlignment="Left" Margin="10,116,0,0" VerticalAlignment="Top" Width="75" Click="ButPie_Click"/>
+        <Button Content="分析报告" x:Name="ButSpline" HorizontalAlignment="Left" Margin="10,178,0,0" VerticalAlignment="Top" Width="75" Click="ButSpline_Click" />
+        <Grid Name="Simon">
+
+        </Grid>
+        <ToolBarPanel HorizontalAlignment="Left" Height="117" Margin="295,178,0,0" VerticalAlignment="Top" Width="135"/>
 
     </Grid>
 </Window>

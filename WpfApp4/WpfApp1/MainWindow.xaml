@@ -6,15 +6,104 @@
         xmlns:local="clr-namespace:WpfApp1"
         mc:Ignorable="d"
       
-        Title="MainWindow" Height="450" Width="680" >
+        Title="Tide" Height="450" Width="678.4" >
+    <Window.Resources>
+        <Style TargetType="ToggleButton" x:Key="ComboxStyleBtn">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Border x:Name="Back" Background="#F7FDF7" BorderThickness="1" BorderBrush="Transparent">
+                            <Path Name="PathFill" Fill="#59CA4F" Width="8" Height="6" StrokeThickness="0" Data="M5,0 L10,10 L0,10 z" RenderTransformOrigin="0.5,0.5" Stretch="Fill">
+                                <Path.RenderTransform>
+                                    <TransformGroup>
+                                        <ScaleTransform/>
+                                        <SkewTransform/>
+                                        <RotateTransform Angle="180"/>
+                                        <TranslateTransform/>
+                                    </TransformGroup>
+                                </Path.RenderTransform>
+                            </Path>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="PathFill" Property="Fill" Value="White"></Setter>
+                                <Setter TargetName="Back" Property="Background" Value="#59CA4F"></Setter>
+                                <Setter TargetName="Back" Property="BorderBrush" Value="#59CA4F"></Setter>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!--Combox-->
+        <Style TargetType="ComboBox" x:Key="ComboBoxStyle">
+            <Setter Property="ItemContainerStyle">
+                <Setter.Value>
+                    <!--ComBoxItem-->
+                    <Style TargetType="ComboBoxItem">
+                        <Setter Property="MinHeight" Value="22"></Setter>
+                        <Setter Property="MinWidth" Value="60"></Setter>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="ComboBoxItem">
+                                    <Border Name="Back" Background="Transparent"  BorderThickness="0,0,0,0" BorderBrush="#81D779" >
+                                        <ContentPresenter ContentSource="{Binding Source}" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5,0,0,0"></ContentPresenter>
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter TargetName="Back" Property="Background" Value="LightGray"></Setter>
+                                        </Trigger>
+                                        <Trigger Property="IsHighlighted" Value="True">
+                                            <Setter TargetName="Back" Property="Background" Value="LightGray"></Setter>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ComboBox">
+                        <Grid Background="#F7FDF7">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="0.7*"/>
+                                <ColumnDefinition Width="0.3*" MaxWidth="20"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBox  Grid.Column="0" IsReadOnly="{TemplateBinding IsReadOnly}" Text="{TemplateBinding Text}"></TextBox>
+                            <Border  Grid.Column="0" BorderThickness="1,1,0,1" BorderBrush="#81D779" CornerRadius="1,0,0,1">
+
+                            </Border>
+                            <Border Grid.Column="1" BorderThickness="0,1,1,1" BorderBrush="#81D779" CornerRadius="0,1,1,0">
+                                <ToggleButton Style="{StaticResource ComboxStyleBtn}" IsChecked="{Binding Path=IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}" ClickMode="Press"></ToggleButton>
+                            </Border>
+                            <Popup IsOpen="{TemplateBinding IsDropDownOpen}" Placement="Bottom" x:Name="Popup" Focusable="False" AllowsTransparency="True" PopupAnimation="Slide">
+                                <Border CornerRadius="1" MaxHeight="{TemplateBinding MaxDropDownHeight}" MinWidth="{TemplateBinding ActualWidth}" x:Name="DropDown" SnapsToDevicePixels="True">
+                                    <Border.Effect>
+                                        <DropShadowEffect Color="Black" BlurRadius="2" ShadowDepth="0" Opacity="0.5"/>
+                                    </Border.Effect>
+                                    <ScrollViewer Margin="4,6,4,6" Style="{DynamicResource ScrollViewerStyle}" MaxHeight="{TemplateBinding MaxDropDownHeight}" SnapsToDevicePixels="True" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" CanContentScroll="True">
+                                        <!-- StackPanel 用于显示子级，方法是将 IsItemsHost 设置为 True -->
+                                        <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Contained" Background="White"/>
+                                    </ScrollViewer>
+                                </Border>
+                            </Popup>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
     <Grid OpacityMask="Black" Width="auto">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="0*"/>
             <ColumnDefinition/>
 
         </Grid.ColumnDefinitions>
-        <Image x:Name="bg" Height="auto"  Source="Resources/start.png"  Width="679" Grid.ColumnSpan="2" Margin="-5,0,-0.4,0" Stretch="UniformToFill" HorizontalAlignment="Left"/>
-        <Button x:Name="StartButton" Content="开始专注" HorizontalAlignment="Left" Margin="290,312,0,0" VerticalAlignment="Top" Width="103" Height="34" Click="Button_Click_1" Grid.Column="1">
+        <Image x:Name="bg" Height="auto"  Source="Resources/start.png"  Width="677" Grid.ColumnSpan="2" Margin="-5,0,0,0" Stretch="UniformToFill" HorizontalAlignment="Left"/>
+        <Button x:Name="StartButton" Content="开始专注" HorizontalAlignment="Left" Margin="290,279,0,0" VerticalAlignment="Top" Width="103" Height="34" Click="Button_Click_1" Grid.Column="1">
             <Button.Template>
                 <ControlTemplate TargetType="{x:Type Button}">
                     <Border BorderBrush="{TemplateBinding Control.BorderBrush}" BorderThickness="0" CornerRadius="8,8,8,8" Name="PART_Background">
@@ -50,7 +139,7 @@
                 </ControlTemplate>
             </Button.Template>
         </Button>
-        <ComboBox x:Name="comboBox" HorizontalAlignment="Left" Margin="207,172,0,0" VerticalAlignment="Top" Width="77" Height="30" SelectionChanged="ComboBox_SelectionChanged" Grid.Column="1" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" SelectedIndex="1">
+        <ComboBox x:Name="comboBox" HorizontalAlignment="Left" Margin="207,172,0,0" VerticalAlignment="Top" Width="77" Height="20" SelectionChanged="ComboBox_SelectionChanged" Grid.Column="1" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" SelectedIndex="1" Style="{StaticResource ComboBoxStyle}">
             <ComboBoxItem HorizontalContentAlignment="Center" VerticalContentAlignment="Center">1</ComboBoxItem>
             <ComboBoxItem Content="25" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
             <ComboBoxItem Content="45" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
@@ -59,7 +148,7 @@
             <ComboBoxItem Content="120" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
         </ComboBox>
         <Label Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="97,172,0,0" VerticalAlignment="Top"/>
-        <Button Grid.ColumnSpan="2" Content="学习记录" HorizontalAlignment="Left" Margin="290,363,0,0" VerticalAlignment="Top" Width="103" Height="34" Click="Button_Click_6">
+        <Button Grid.ColumnSpan="2" Content="学习记录" HorizontalAlignment="Left" Margin="290,324,0,0" VerticalAlignment="Top" Width="103" Height="34" Click="Button_Click_6">
             <Button.Template>
                 <ControlTemplate TargetType="{x:Type Button}">
                     <Border BorderBrush="{TemplateBinding Control.BorderBrush}" BorderThickness="0" CornerRadius="8,8,8,8" Name="PART_Background">
@@ -95,12 +184,50 @@
                 </ControlTemplate>
             </Button.Template>
         </Button>
-        <ComboBox x:Name="comboBox2" HorizontalAlignment="Left" Margin="387,172,0,0" VerticalAlignment="Top" Width="77" Height="30" SelectionChanged="ComboBox_SelectionChanged" Grid.Column="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" SelectedIndex="0">
-            <ComboBoxItem Content="默认主题" HorizontalAlignment="Center" VerticalAlignment="Center" />
+        <ComboBox x:Name="comboBox2" HorizontalAlignment="Left" Margin="387,172,0,0" VerticalAlignment="Top" Width="77" Height="20" SelectionChanged="ComboBox_SelectionChanged" Grid.Column="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" SelectedIndex="0" Style="{StaticResource ComboBoxStyle}">
+            <ComboBoxItem Content="默认主题" HorizontalAlignment="Center" VerticalAlignment="Center" Selected="ComboBoxItem4" />
             <ComboBoxItem Content="森林" Selected="ComboBoxItem1" HorizontalAlignment="Center" VerticalAlignment="Center"/>
             <ComboBoxItem Content="雨天" Selected="ComboBoxItem2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
             <ComboBoxItem Content="海浪" Selected="ComboBoxItem3" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         </ComboBox>
+        <Label  x:Name="MoneyL" Grid.ColumnSpan="2" Content="{Binding Path=Name}" HorizontalAlignment="Left" Height="27" Margin="540,382,0,0" VerticalAlignment="Top" Width="103" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+        </Label>
+        <Button Grid.ColumnSpan="2" Content="监控软件" HorizontalAlignment="Left" Margin="290,370,0,0" VerticalAlignment="Top" Width="103" Height="34" Click="Button_Click_7" HorizontalContentAlignment="Center">
+            <Button.Template>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="0" CornerRadius="8,8,8,8" x:Name="PART_Background">
+                        <Border.Background>
+                            <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                                <GradientStop Color="White" Offset="0.0" />
+                                <GradientStop Color="Silver" Offset="0.5" />
+                                <GradientStop Color="White" Offset="0.0" />
+                            </LinearGradientBrush>
+                        </Border.Background>
+                        <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="28,10,0,10" />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" TargetName="PART_Background">
+                                <Setter.Value>
+                                    <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                                        <GradientStop Color="Silver" Offset="0.0" />
+                                        <GradientStop Color="White" Offset="0.5" />
+                                        <GradientStop Color="Silver" Offset="0.0" />
+                                    </LinearGradientBrush>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter Property="Effect">
+                                <Setter.Value>
+                                    <DropShadowEffect BlurRadius="10" Color="Black" Direction="0" Opacity="0.6" RenderingBias="Performance" ShadowDepth="0" />
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
 
     </Grid>
 </Window>
