@@ -233,5 +233,19 @@ namespace WpfApp1
                 listview.Items.Add(s);
             }
         }
+        //按下Enter键也可以添加
+        private void text_KeyUp(object sender, KeyEventArgs e)
+        {
+
+            Key myKey = e.Key;
+            if(myKey == Key.Enter)
+            {
+                string s = text.Text.ToLower();
+
+                if (!listview.Items.Contains(s))
+                    listview.Items.Add(s);
+                text.Text = "";
+            }
+        }
     }
 }

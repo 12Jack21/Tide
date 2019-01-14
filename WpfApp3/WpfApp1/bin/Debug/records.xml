@@ -737,4 +737,14 @@
     <LearnState>true</LearnState>
     <learnTime>600000000</learnTime>
   </LearningRecordManager>
+  <LearningRecordManager>
+    <recordNo>40</recordNo>
+    <pm />
+    <Coin>0</Coin>
+    <RecordNo>40</RecordNo>
+    <LearnDate>2019-01-14T21:23:15.6927536+08:00</LearnDate>
+    <LearnStateResult>未完成</LearnStateResult>
+    <LearnState>false</LearnState>
+    <learnTime>15000000000</learnTime>
+  </LearningRecordManager>
 </ArrayOfLearningRecordManager>

@@ -163,9 +163,9 @@
             <ComboBoxItem Content="90" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
             <ComboBoxItem Content="120" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
         </ComboBox>
-        <TextBox x:Name="text" HorizontalAlignment="Left" Height="24" Margin="230,4.6,0,0" Grid.Row="1" TextWrapping="Wrap" Text="LOL" VerticalAlignment="Top" Width="77"/>
+        <TextBox x:Name="text" HorizontalAlignment="Left" Height="24" Margin="230,4.6,0,0" Grid.Row="1" TextWrapping="Wrap" Text="chrome" VerticalAlignment="Top" Width="77" KeyUp="text_KeyUp"/>
         <TextBlock HorizontalAlignment="Left" Margin="502,75.6,-109.6,-56.6" Grid.Row="1" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top"/>
-        <ListView x:Name="listview" HorizontalAlignment="Left" Height="115" Margin="246,0,0,0" VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.5,0.5" Grid.RowSpan="2" Initialized="listview_Initialized">
+        <ListView x:Name="listview" Height="115" Margin="246,0,21.4,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" Grid.RowSpan="2" Initialized="listview_Initialized">
             <ListView.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
