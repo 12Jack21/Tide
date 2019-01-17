@@ -747,4 +747,42 @@
     <LearnState>false</LearnState>
     <learnTime>15000000000</learnTime>
   </LearningRecordManager>
+  <LearningRecordManager>
+    <recordNo>41</recordNo>
+    <pm>
+      <Proc>
+        <Name>chrome</Name>
+        <Time>6</Time>
+      </Proc>
+    </pm>
+    <Coin>0</Coin>
+    <RecordNo>41</RecordNo>
+    <LearnDate>2019-01-17T18:01:15.8034319+08:00</LearnDate>
+    <LearnStateResult>未完成</LearnStateResult>
+    <LearnState>false</LearnState>
+    <learnTime>15000000000</learnTime>
+  </LearningRecordManager>
+  <LearningRecordManager>
+    <recordNo>42</recordNo>
+    <pm>
+      <Proc>
+        <Name>devenv</Name>
+        <Time>2</Time>
+      </Proc>
+      <Proc>
+        <Name>tim</Name>
+        <Time>7</Time>
+      </Proc>
+      <Proc>
+        <Name>idle</Name>
+        <Time>1</Time>
+      </Proc>
+    </pm>
+    <Coin>0</Coin>
+    <RecordNo>42</RecordNo>
+    <LearnDate>2019-01-17T19:03:01.1610595+08:00</LearnDate>
+    <LearnStateResult>未完成</LearnStateResult>
+    <LearnState>false</LearnState>
+    <learnTime>15000000000</learnTime>
+  </LearningRecordManager>
 </ArrayOfLearningRecordManager>

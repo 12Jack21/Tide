@@ -84,7 +84,7 @@ namespace WpfApp1
                 disTimer.Start();            
         }
 
-
+        
         private void Start()    //初始化时调用该函数，开始计时
         {
             disTimer.Interval = new TimeSpan(0, 0, 0, 1); //参数为:天 小时 分和秒
@@ -130,7 +130,7 @@ namespace WpfApp1
             alert = new AlertDialog(pm.getGameName(), pm.getTime());
             alert.ShowDialog();
         }
-        //时钟
+        //时钟Tick
         void disTimer_Tick(object sender, EventArgs e)   
         {
             pm.onceMonitor();
@@ -142,7 +142,7 @@ namespace WpfApp1
 
                 //显示警告框
                 showAlertDialog();
-                if (alert.isConfirm)
+                if (alert.isConfirm)//确定不学了
                 {
                     disTimer.Stop(); //关闭计时器
                     mc.StopT(); //关闭音乐               

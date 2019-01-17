@@ -34,9 +34,7 @@ namespace WpfApp1
         public void init()
         {
             readMonitorApp();
-        }
-
-        
+        }       
 
         //从文件中读取记录的监控软件
         public void readMonitorApp()
@@ -86,6 +84,14 @@ namespace WpfApp1
         //获取checkoBox里的软件名
         public List<string> getLists()
         {
+            if ((bool)check1.IsChecked)
+                monitorList1.Add((String)check1.Content);
+            if ((bool)check2.IsChecked)
+                monitorList1.Add((String)check2.Content);
+            if ((bool)check3.IsChecked)
+                monitorList1.Add((String)check3.Content);
+            if ((bool)check4.IsChecked)
+                monitorList1.Add((String)check4.Content);
             return monitorList1;
         }
 
@@ -106,64 +112,66 @@ namespace WpfApp1
             this.DialogResult = true;
         }
 
-        private void CheckBox1(object sender, RoutedEventArgs e)
-        {
-            if ((bool)this.check1.IsChecked)
-            {
-                string s = (String)this.check1.Content;
-                if (!monitorList1.Contains(s))
-                    monitorList1.Add(s.ToLower());
-            }
-            else
-            {
-                monitorList1.Remove(((String)this.check1.Content).ToLower());
-            }
-        }
+        //private void CheckBox1(object sender, RoutedEventArgs e)
+        //{
+        //    if ((bool)this.check1.IsChecked)
+        //    {
+        //        string s = (String)this.check1.Content;
+        //        if (!monitorList1.Contains(s))
+        //            monitorList1.Add(s.ToLower());
+        //    }
+        //    else
+        //    {
+        //        monitorList1.Remove(((String)this.check1.Content).ToLower());
+        //    }
+        //}
 
-        private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
+        //private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        //{
 
-        }
+        //}
 
-        private void check2_Checked(object sender, RoutedEventArgs e)
-        {
-            if ((bool)this.check2.IsChecked)
-            {
-                string s = (String)this.check2.Content;
-                if (!monitorList1.Contains(s))
-                    monitorList1.Add(s.ToLower());
-            }
-            if ((bool)this.check2.IsChecked)
-            {
-                monitorList1.Remove(((String)this.check2.Content).ToLower());
-            }
-        }
+        //private void check2_Checked(object sender, RoutedEventArgs e)
+        //{
+        //    if ((bool)this.check2.IsChecked)
+        //    {
+        //        string s = (String)this.check2.Content;
+        //        if (!monitorList1.Contains(s))
+        //            monitorList1.Add(s.ToLower());
+        //    }
+        //    if ((bool)this.check2.IsChecked)
+        //    {
+        //        monitorList1.Remove(((String)this.check2.Content).ToLower());
+        //    }
+        //}
 
-        private void check3_Checked(object sender, RoutedEventArgs e)
-        {
-            if ((bool)this.check3.IsChecked)
-            {
-                monitorList1.Add((String)this.check3.Content);
-            }
-            else
-            {
-                monitorList1.Remove((String)this.check3.Content);
-            }
-        }
+        //private void check3_Checked(object sender, RoutedEventArgs e)
+        //{
+        //    if ((bool)this.check3.IsChecked)
+        //    {
+        //        string s = (String)this.check3.Content;
+        //        if (!monitorList1.Contains(s))
+        //            monitorList1.Add(s.ToLower());
+        //    }
+        //    else
+        //    {
+        //        monitorList1.Remove(((String)this.check3.Content).ToLower());
+        //    }
+        //}
 
-        private void check4_Checked(object sender, RoutedEventArgs e)
-        {
-            if ((bool)this.check4.IsChecked)
-            {
-                string s = (String)this.check4.Content;
-                if (!monitorList1.Contains(s))
-                    monitorList1.Add(s.ToLower());
-            }
-            else
-            {
-                monitorList1.Remove(((String)this.check4.Content).ToLower());
-            }
-        }
+        //private void check4_Checked(object sender, RoutedEventArgs e)
+        //{
+        //    if ((bool)this.check4.IsChecked)
+        //    {
+        //        string s = (String)this.check4.Content;
+        //        if (!monitorList1.Contains(s))
+        //            monitorList1.Add(s.ToLower());
+        //    }
+        //    else
+        //    {
+        //        monitorList1.Remove(((String)this.check4.Content).ToLower());
+        //    }
+        //}
 
         
 
@@ -217,7 +225,7 @@ namespace WpfApp1
                     myMain.gameList.Add(s.ToLower());
             }
 
-            foreach (var s in monitorList1)
+            foreach (var s in getLists())
             {
                 if (!myMain.gameList.Contains(s.ToLower()))
                     myMain.gameList.Add(s.ToLower());
